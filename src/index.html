@@ -2,10 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AjcWeb</title>
+  <title>Andy Campbell — Software for manufacturing</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!--
+    Anti-flash theme script (SPEC.md §7).
+
+    Must run BEFORE first paint, which is why it's an inline blocking script in
+    <head> rather than anything Angular does. The page is prerendered to static
+    HTML, so without this a returning dark-mode visitor gets a white flash while
+    the bundle loads and hydrates. Invisible in development, obvious on a real
+    cold load.
+
+    DELIBERATE: this does NOT read `prefers-color-scheme`.
+
+    A first-time visitor always lands in light, whatever their OS says. The warm
+    light palette is the art-directed one and it's what should form the first
+    impression — most of this site's audience runs dark system-wide, so honoring
+    the OS would mean almost nobody ever sees it. An explicit choice is still
+    remembered: click the toggle once and it persists.
+
+    To restore OS-preference behavior, add back:
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    and treat it as dark when nothing is stored.
+
+    try/catch guards localStorage throwing in private-browsing modes.
+  -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {
+        /* Storage unavailable — fall through to the light default. */
+      }
+    })();
+  </script>
 </head>
 <body>
   <app-root></app-root>

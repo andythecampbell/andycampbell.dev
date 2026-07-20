@@ -1,1 +1,92 @@
-/* You can add global styles to this file, and also import other style files */
+/* ---------------------------------------------------------------------------
+   andycampbell.dev — global styles
+
+   Tailwind v4. Note there is no `tailwind.config.js` — v4 moved configuration
+   into CSS. Most tutorials you'll find online are still v3 and will tell you to
+   create that file; ignore them, it does nothing here.
+   --------------------------------------------------------------------------- */
+
+@import "tailwindcss";
+
+/* Dark mode is driven by a `.dark` class on <html>, not by `prefers-color-scheme`
+   alone — we need a manual toggle that can override the OS setting. This
+   redefines Tailwind's built-in `dark:` variant to look for that class instead.
+   The OS preference is still respected: the inline script in index.html reads it
+   on first visit and sets the class accordingly. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --- Design tokens (SPEC.md §4.2) -----------------------------------------
+   Plain CSS custom properties, defined twice — once light, once dark. Toggling
+   the `.dark` class on <html> re-points all of them at once. */
+:root {
+  --bg:        #faf8f5; /* warm off-white, not paper-white */
+  --surface:   #f2eee8;
+  --ink:       #1c1917; /* warm near-black — never #000 */
+  --ink-muted: #57534e;
+  --rule:      #e0d9d0;
+  --accent:    #5f4330; /* deep walnut */
+}
+
+.dark {
+  --bg:        #1a1715; /* warm charcoal — deliberately not blue-black */
+  --surface:   #252019;
+  --ink:       #ede8e1;
+  --ink-muted: #a8a09a;
+  --rule:      #3a342e;
+  --accent:    #c9a47e; /* warm tan — walnut lightened for dark-mode contrast */
+}
+
+/* --- Expose the tokens to Tailwind ----------------------------------------
+   This registers them as theme values, which is what generates the utility
+   classes: `--color-ink` produces `text-ink`, `bg-ink`, `border-ink`, etc.
+
+   The `inline` keyword is the load-bearing part. It makes each utility emit
+   `var(--ink)` rather than baking the literal hex in at build time. Without it
+   the values would be frozen at whatever `:root` said, and the dark-mode swap
+   above would silently do nothing. This is the single easiest thing to get
+   wrong in a v4 theme setup. */
+@theme inline {
+  --color-bg:        var(--bg);
+  --color-surface:   var(--surface);
+  --color-ink:       var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule:      var(--rule);
+  --color-accent:    var(--accent);
+
+  /* Placeholder stacks. Real self-hosted, subset faces land in Phase 1 once
+     the heading typeface is chosen against actual content (SPEC.md §4.3). */
+  --font-sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  --font-mono:  ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+}
+
+/* --- Base ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* SPEC.md §4.5 — motion is a nicety, never a barrier. Set up now so it can't
+     be forgotten later, once there's actual animation to suppress. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
