@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { CONTACT_LINKS, SECTIONS } from './data/site';
+import { CONTACT_LINKS, NOW, SECTIONS } from './data/site';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -47,6 +47,18 @@ describe('App', () => {
     const compiled = await render();
     for (const link of CONTACT_LINKS) {
       expect(compiled.querySelector(`a[href="${link.href}"]`)).toBeTruthy();
+    }
+  });
+
+  /* These are claims about a real employer's numbers. If a template change ever
+     drops one silently, the section quietly becomes vaguer than intended. */
+  it('should render both metrics with their before and after values', async () => {
+    const compiled = await render();
+    const text = compiled.querySelector('section#now')?.textContent ?? '';
+    for (const m of NOW.metrics) {
+      expect(text).toContain(m.from);
+      expect(text).toContain(m.to);
+      expect(text).toContain(m.change);
     }
   });
 

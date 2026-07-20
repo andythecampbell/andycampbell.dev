@@ -1,17 +1,14 @@
 <!--
-  Phase 1 — structural shell.
-
-  Nav, footer, and the section skeleton with working anchors. Hero copy is real
-  (SPEC.md §6.1 option A); the remaining sections are deliberate placeholders
-  that name what belongs in them. Phase 2+ fills them in.
+  Phase 2 — hero and "What I build now" are real. Sections below them are still
+  placeholders naming what belongs in them.
 -->
 <div id="top" class="min-h-dvh bg-bg text-ink">
   <app-site-nav />
 
   <main class="mx-auto max-w-5xl px-6">
     <!-- ── Hero ─────────────────────────────────────────────────────────
-         One sentence. Nothing competes with it, so no image, no headshot,
-         no call-to-action row. SPEC.md §6.1 -->
+         One sentence, nothing competing with it. No image, no headshot, no
+         button row — the sentence is the hook. SPEC.md §6.1 -->
     <section class="py-28 sm:py-36">
       <p class="font-mono text-xs tracking-widest text-ink-muted uppercase">
         {{ site.role }}
@@ -27,49 +24,77 @@
       </p>
     </section>
 
-    <!-- ── Placeholder sections ─────────────────────────────────────────
-         `scroll-mt-24` keeps anchor targets clear of the sticky nav. Without
-         it every jump lands with the heading hidden behind the header. -->
+    <!-- ── What I build now ─────────────────────────────────────────────
+         Short. Current role, the concrete thing built, two metrics.
+         SPEC.md §6.2 -->
     <section id="now" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">What I build now</h2>
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — Stratasys, RapidQuotes, and the manufacturing-software focus. Two metrics
-        maximum: revenue growth and checkout time. SPEC.md §6.2
+      <app-section-heading label="What I build now" />
+
+      <!-- The lede carries the sentence someone skimming will actually read,
+           so it gets display type and full-contrast ink. The detail below it
+           steps down in both size and colour rather than only in size —
+           two signals of hierarchy instead of one. -->
+      <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+        {{ now.lede }}
       </p>
+
+      <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        {{ now.body }}
+      </p>
+
+      <!-- Before/after, not a percentage alone. "+52%" says nothing about
+           whether the base was thousands or millions; the arrow does. -->
+      <dl class="mt-14 grid gap-8 sm:grid-cols-2 sm:gap-12">
+        @for (m of now.metrics; track m.label) {
+          <div class="border-l-2 border-rule pl-5">
+            <dt class="font-mono text-xs tracking-widest text-ink-muted uppercase">
+              {{ m.label }}
+            </dt>
+            <dd class="mt-3 font-display text-2xl tracking-tight text-ink">
+              {{ m.from }}
+              <span class="px-1 text-ink-muted" aria-hidden="true">→</span>
+              {{ m.to }}
+            </dd>
+            <dd class="mt-2 font-mono text-xs text-accent">{{ m.change }}</dd>
+          </div>
+        }
+      </dl>
     </section>
 
+    <!-- ── Placeholders ─────────────────────────────────────────────────
+         `scroll-mt-24` keeps anchor targets clear of the sticky nav. -->
     <section id="work" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Visual work</h2>
+      <app-section-heading label="Visual work" />
       <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — the DFM validation capture, shown large in a consistent frame. Highest-leverage
-        content on the site; gets the most design attention. SPEC.md §6.3
+        Placeholder — the DFM validation capture, shown large in a consistent frame.
+        Highest-leverage content on the site; gets the most design attention. SPEC.md §6.3
       </p>
     </section>
 
     <section id="projects" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Projects</h2>
+      <app-section-heading label="Projects" />
       <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
         Placeholder — Side Quest Quant, led by the problem rather than the domain. SPEC.md §6.4
       </p>
     </section>
 
     <section id="arc" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">The arc</h2>
+      <app-section-heading label="The arc" />
       <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — shop floor to software, told honestly including the non-linear part. Six
-        sentences at the outside. SPEC.md §6.5
+        Placeholder — shop floor to software, told honestly including the non-linear part.
+        Six sentences at the outside. SPEC.md §6.5
       </p>
     </section>
 
     <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Technologies</h2>
+      <app-section-heading label="Technologies" />
       <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
         Placeholder — five groups, text labels, no logo grid. SPEC.md §6.6
       </p>
     </section>
 
     <section id="contact" class="scroll-mt-24 border-t border-rule py-24">
-      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Contact</h2>
+      <app-section-heading label="Contact" />
       <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
         Placeholder — the links live in the footer for now; this section decides whether it
         duplicates them or defers to them. SPEC.md §6.7

@@ -27,6 +27,28 @@ export const SITE = {
   location: 'San Diego, CA',
 } as const;
 
+/**
+ * A before/after pair. The movement is the interesting part — a bare "52%"
+ * hides whether that's on a base of thousands or millions (SPEC.md §6.2).
+ */
+export interface Metric {
+  readonly label: string;
+  readonly from: string;
+  readonly to: string;
+  readonly change: string;
+}
+
+export const NOW = {
+  lede: 'Senior full-stack developer at Stratasys since 2022, building production software for industrial 3D printing.',
+  body: 'I led the redesign of RapidQuotes — Stratasys Direct Manufacturing’s quoting portal, where a customer uploads a part, has it checked against the real constraints of the process that will build it, and orders it. .NET and Angular, with the geometry running on Polygonica and three.js.',
+  /* Two, not five. The resume carries the other three; a wall of percentages
+     reads as padding and undercuts the voice. SPEC.md §6.2 */
+  metrics: [
+    { label: 'Revenue', from: '$2.56M', to: '$3.89M', change: '+52%' },
+    { label: 'Checkout', from: '15s', to: '6s', change: '60% faster' },
+  ] as readonly Metric[],
+} as const;
+
 export interface ContactLink {
   readonly label: string;
   readonly href: string;
