@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ajc-web": {
+    "andycampbell-dev": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -58,10 +58,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ajc-web:build:production"
+              "buildTarget": "andycampbell-dev:build:production"
             },
             "development": {
-              "buildTarget": "ajc-web:build:development"
+              "buildTarget": "andycampbell-dev:build:development"
             }
           },
           "defaultConfiguration": "development"

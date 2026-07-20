@@ -1,59 +1,45 @@
-# AjcWeb
+# andycampbell.dev
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+Personal site for Andy Campbell — senior full-stack developer working in
+manufacturing software.
 
-## Development server
+Angular, prerendered to static HTML. No server runtime.
 
-To start a local development server, run:
+## Stack
 
-```bash
-ng serve
-```
+- **Angular 21** — standalone components, signals, zoneless
+- **Tailwind CSS v4** — CSS-first `@theme` configuration, no `tailwind.config.js`
+- **Static prerendering** — `outputMode: "static"`, builds to plain HTML/CSS/JS
+- **Hosting** — Cloudflare Tunnel to a self-hosted Proxmox container
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Commands
 
 ```bash
-ng generate component component-name
+npm start        # dev server at http://localhost:4200
+npm run build    # prerender to dist/andycampbell-dev/browser
+npm test         # unit tests (Vitest)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The build output is static files. Serve the `browser/` directory with any web
+server; there is no Node process to run.
 
-```bash
-ng generate --help
-```
+## Design notes
 
-## Building
+The spec lives in [`SPEC.md`](./SPEC.md) — audience, non-goals, design tokens,
+section-by-section content direction, and the open items list. Read it before
+making design or copy changes; several decisions in there are deliberate and
+look arbitrary without the reasoning.
 
-To build the project run:
+Two that are easy to undo by accident:
 
-```bash
-ng build
-```
+- **`@theme inline` in `src/styles.css`** is load-bearing. It makes utilities emit
+  `var(--token)` instead of baking in hex at build time. Drop `inline` and the
+  light/dark swap silently stops working.
+- **The inline script in `src/index.html`** applies the theme class before first
+  paint. Without it, returning dark-mode visitors get a white flash on load. It
+  deliberately does *not* read `prefers-color-scheme` — see SPEC.md §7.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Source material
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Working material (resume, profile notes, original screen captures) lives in
+`_source/`, which is gitignored and local-only.
