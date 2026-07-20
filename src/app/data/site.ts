@@ -40,7 +40,7 @@ export interface Metric {
 
 export const NOW = {
   lede: 'Senior full-stack developer at Stratasys since 2022, building production software for industrial 3D printing.',
-  body: 'Mostly .NET and Angular, on systems where what gets ordered is a physical part rather than a row in a database. I led the redesign of Stratasys Direct Manufacturing’s quoting portal; the numbers below are from that work.',
+  body: 'Mostly .NET and Angular, on systems where what gets ordered is a physical part rather than a row in a database. Most of the work comes down to the same shape: more throughput, less time spent waiting. The numbers below are from the quoting portal redesign I led.',
   /* Two, not five. The resume carries the other three; a wall of percentages
      reads as padding and undercuts the voice. SPEC.md §6.2 */
   metrics: [
@@ -83,6 +83,51 @@ export const VISUAL_WORK = {
     },
   ] as readonly Artifact[],
 } as const;
+
+export interface Project {
+  readonly name: string;
+  readonly href: string;
+  readonly hrefLabel: string;
+  /** Sets expectation before the click — a login wall shouldn't read as a dead link. */
+  readonly access: string;
+  readonly lede: string;
+  readonly body: readonly string[];
+  /** Why this matters to a reader who doesn't care about the domain. */
+  readonly generalization: string;
+  readonly stack: readonly string[];
+  readonly artifact: Artifact;
+}
+
+export const PROJECTS: readonly Project[] = [
+  {
+    name: 'Side Quest Quant',
+    href: 'https://sidequestquant.com',
+    hrefLabel: 'sidequestquant.com',
+    access: 'Live — request access',
+    /* Leads with the problem. Trading is the venue, not the subject, and the
+       "not a finance person" note appears once as a clause. SPEC.md §6.4 */
+    lede: 'Letting someone write their own code and run it inside your application — safely, at scale, in a loop that never stops.',
+    body: [
+      'Side Quest Quant is a platform for writing, testing, and running trading strategies. I don’t trade; I wanted to know whether untrusted, user-authored code could be executed safely in a live loop. That turned out to be the entire problem.',
+      'Strategies are written in C# and compiled at runtime with Roslyn, then replayed against billions of records of history before they go near a live market. Agents running across several LLM providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor.',
+    ],
+    generalization:
+      'The pattern outlives the domain. Safely running customer-authored logic inside a host application is the same problem as enterprise CPQ rules, manufacturing business logic, and CAM toolpath validation — anywhere the customer knows their own domain better than the vendor ever will.',
+    stack: ['ASP.NET Core', 'Angular', 'SQL Server', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
+    artifact: {
+      src: 'media/side-quest-quant-backtests.png',
+      alt: 'A dark application interface. On the left, an agent conversation with the LLM provider set to Claude and a model selected, showing a dispatched job with an ID and running status. On the right, a column of completed backtest cards, each with a line chart of its output.',
+      /* Describes what is on screen and nothing more. The curves are evidence the
+         loop runs end to end; presenting them as results to admire would be the
+         exact register §6.4 avoids. */
+      caption:
+        'A batch of backtests. Left, an agent session with the provider and model chosen explicitly. Right, completed runs and their output.',
+      /* Not cropped. The partly visible third card reads as a list continuing;
+         cropping higher would cut the chat input mid-element, which reads as broken. */
+      ratio: '1880/881',
+    },
+  },
+];
 
 export interface ContactLink {
   readonly label: string;

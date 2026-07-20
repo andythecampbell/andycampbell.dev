@@ -78,29 +78,9 @@
       </p>
 
       @for (a of visualWork.artifacts; track a.src) {
-        <figure class="mt-12">
-          <!-- Every capture gets the same frame — border, radius, surface
-               background. The screenshots are chromatically unrelated to each
-               other and to the site; the identical frame is what makes them
-               read as a set instead of as clip art. Never recolour a capture
-               to force harmony: it misrepresents the product. -->
-          <div class="-mx-6 overflow-hidden border-y border-rule bg-surface sm:mx-0 sm:rounded-sm sm:border">
-            <img
-              [src]="a.src"
-              [alt]="a.alt"
-              [style.aspect-ratio]="a.ratio"
-              class="w-full object-cover object-top"
-              width="1846"
-              height="750"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-
-          <figcaption class="mt-5 max-w-[68ch] font-body text-sm leading-relaxed text-ink-muted">
-            {{ a.caption }}
-          </figcaption>
-        </figure>
+        <div class="mt-12">
+          <app-artifact-figure [artifact]="a" />
+        </div>
       }
 
       <p class="mt-12 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
@@ -108,11 +88,60 @@
       </p>
     </section>
 
+    <!-- ── Projects ─────────────────────────────────────────────────────
+         Leads with the problem solved, not the domain and not the disclaimer.
+         Trading is where the problem got solved; it isn't the subject.
+         SPEC.md §6.4 -->
     <section id="projects" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="Projects" />
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — Side Quest Quant, led by the problem rather than the domain. SPEC.md §6.4
-      </p>
+
+      @for (p of projects; track p.name) {
+        <article class="mt-8">
+          <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+            <h3 class="font-display text-3xl tracking-tight sm:text-4xl">{{ p.name }}</h3>
+
+            <!-- The access state is set before the click. A login wall that
+                 arrives unannounced reads as a broken link. -->
+            <a
+              [href]="p.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs tracking-widest text-ink-muted uppercase underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {{ p.access }}
+            </a>
+          </div>
+
+          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+            {{ p.lede }}
+          </p>
+
+          @for (paragraph of p.body; track $index) {
+            <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+              {{ paragraph }}
+            </p>
+          }
+
+          <div class="mt-12">
+            <app-artifact-figure [artifact]="p.artifact" />
+          </div>
+
+          <!-- Set apart because it's the sentence that matters to a reader who
+               doesn't care about trading — which is most of the intended
+               audience. Same treatment as the metrics: a rule, not a box. -->
+          <p
+            class="mt-12 max-w-[65ch] border-l-2 border-accent pl-5 font-body text-base leading-relaxed text-ink"
+          >
+            {{ p.generalization }}
+          </p>
+
+          <ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2">
+            @for (tech of p.stack; track tech) {
+              <li class="font-mono text-xs tracking-wider text-ink-muted">{{ tech }}</li>
+            }
+          </ul>
+        </article>
+      }
     </section>
 
     <section id="arc" class="scroll-mt-24 border-t border-rule py-24">

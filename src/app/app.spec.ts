@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { CONTACT_LINKS, NOW, SECTIONS, VISUAL_WORK } from './data/site';
+import { CONTACT_LINKS, NOW, PROJECTS, SECTIONS, VISUAL_WORK } from './data/site';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -68,10 +68,22 @@ describe('App', () => {
      information; a decorative empty alt would be wrong here. */
   it('should render every artifact with meaningful alt text', async () => {
     const compiled = await render();
-    for (const artifact of VISUAL_WORK.artifacts) {
+    const artifacts = [...VISUAL_WORK.artifacts, ...PROJECTS.map((p) => p.artifact)];
+
+    for (const artifact of artifacts) {
       const img = compiled.querySelector<HTMLImageElement>(`img[src="${artifact.src}"]`);
       expect(img).toBeTruthy();
       expect(img?.getAttribute('alt')?.length ?? 0).toBeGreaterThan(20);
+    }
+  });
+
+  it('should link each project with its access state announced', async () => {
+    const compiled = await render();
+    for (const project of PROJECTS) {
+      const link = compiled.querySelector(`a[href="${project.href}"]`);
+      expect(link).toBeTruthy();
+      expect(link?.textContent).toContain(project.access);
+      expect(link?.getAttribute('rel')).toContain('noopener');
     }
   });
 
