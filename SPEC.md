@@ -57,7 +57,7 @@ Naming these to keep scope honest:
 | Rendering | **Prerendered static (SSG)** | No server runtime, real SEO, cheapest to keep alive for years |
 | Styling | **Tailwind CSS** | No imposed visual identity; enforced design-token scale. Also a deliberate learning goal for this build |
 | Aesthetic | **Warm / crafted** | Warm paper-and-wood neutrals; ties the trades origin into the visual language |
-| Theme | **Light default + dark toggle** | Honors `prefers-color-scheme`, with manual override persisted |
+| Theme | **Light always on first visit + dark toggle** | See §7 — deliberately ignores `prefers-color-scheme` |
 | Domain | **andycampbell.dev** (registered) | — |
 | Hosting | Leaning **Cloudflare Tunnel → Proxmox container** (home server) | Cheapest, already-owned infrastructure. Not final — static output deploys anywhere, so this stays reversible |
 | Email | **andy@andycampbell.dev** (Cloudflare forwarder) | Keeps the personal Gmail off a public page |
@@ -264,10 +264,16 @@ than a visualization library call.
 
 ### 6.4 Projects — Side Quest Quant
 
-Framing from the brief, which is strong and should survive mostly intact:
+**Lead with the problem, not the domain and not the disclaimer.**
 
-- Built by someone who isn't a finance person. The draw was **the architecture** —
-  safe execution of untrusted user-authored code, at scale, in a real-time loop.
+The problem: *letting people author their own logic and run it inside a hosted
+application — safely, at scale, in a real-time loop.* Trading is the venue where that
+problem got solved. It is not the subject of the section.
+
+- Open on the problem and the loop it closes: idea → code → backtest → live.
+- The architecture is why the project got finished — the hard part was making
+  untrusted user-authored code safe to execute, not picking indicators. Present that
+  as **problem-solving**, not as a trophy cabinet.
 - Technical facts: ASP.NET Core + Angular + SQL Server, 600M+ historical records,
   Roslyn dynamic compilation, multi-provider LLM orchestration (Anthropic, OpenAI,
   Gemini, Ollama), agentic tool-use with SSE streaming, custom MCP server, Auth0,
@@ -278,20 +284,39 @@ Framing from the brief, which is strong and should survive mostly intact:
   on this site. Just label the link so expectations are set before the click
   (e.g. "Live — request access") rather than letting a login wall read as a dead link.
 
-**Framing conflict to resolve.** The brief and the resume pitch this project
-differently:
+**The "I'm not a finance person" angle — handle with restraint.**
 
-- **Brief:** the architecture — safe execution of untrusted user-authored code at
-  scale in a real-time loop.
-- **Résumé:** multi-tenant SaaS where users build strategies through
-  natural-language conversation with AI agents.
+The brief leans on this heavily. Andy's own read is that it's overemphasized, and he's
+right. The disclaimer is self-defeating: every sentence insisting the project isn't
+about trading is still a sentence about trading. Repeat it three times and finance
+becomes the subject of the section — which is the exact association it was meant to
+avoid. Protesting also reads as slightly defensive, and defensiveness is the one tone
+this site can't afford.
 
-Both are true; they lead with different things. **Recommend the brief's framing for
-the site.** The untrusted-code-execution angle is the harder engineering problem, it's
-more distinctive, and it's the one that generalizes to manufacturing (below). The
-natural-language/agentic layer is a strong supporting detail — it just shouldn't lead,
-because "AI agents you talk to" is a crowded claim right now and the Roslyn sandbox
-isn't.
+**But don't delete the idea — it's genuinely good.** "Someone who isn't a finance
+person built a serious finance app" is an interesting, disarming fact. It just needs to
+land as *an aside that earns a second look*, not as a thesis.
+
+**Rule: state it once, lightly, and move on.** One clause. Never a paragraph, never
+repeated, never apologetic. Something in the register of "I don't trade; I wanted to
+know whether untrusted code could be executed safely in a live loop" — the disclaimer
+and the actual motivation in a single breath, with the weight on the second half.
+
+**Explicitly avoid:** returns, P&L framing, alpha, edge, any language that codes as
+trading culture. The equity curves in the screenshot are evidence the system runs, not
+evidence of performance — caption them accordingly, and never present a number as a
+result worth admiring.
+
+**On the backend pride.** Andy is justifiably proud of the backend, and his own
+instinct is that "solved a problem" matters more than "built impressive infrastructure."
+Follow that instinct. Lead every technical claim with what it made possible; the
+implementation detail is the second half of the sentence, not the first. Roslyn is *how*
+users get to run their own strategies safely — that's the order to say it in.
+
+**Resume framing, for reconciliation.** The resume leads with multi-tenant SaaS and
+natural-language agent conversation. That's true and belongs in the section — as
+supporting detail, not the opener. "AI agents you can talk to" is a crowded claim right
+now; safely executing untrusted user code is not.
 - **State the generalization explicitly:** the contract-first pattern for safely
   executing untrusted user logic inside a host application maps directly to enterprise
   CPQ, manufacturing business logic, and CAM toolpath validation. This is what makes
@@ -447,10 +472,26 @@ visual gallery an ongoing collection.
 **Standalone components, signals, new control flow** (`@if`/`@for`). Modern Angular
 idiom throughout; no NgModules.
 
-**Theme toggle:** class-based dark mode. Read `prefers-color-scheme` on first visit,
-persist explicit user choice to `localStorage`. Inline script in `<head>` to apply the
-class before first paint — otherwise there's a flash of light theme on dark-preferring
-machines. Easy to miss, very visible when wrong.
+**Theme toggle:** class-based dark mode, persisted to `localStorage`. Inline script in
+`<head>` applies the class before first paint — without it, a returning dark-mode
+visitor gets a white flash while the bundle hydrates.
+
+**First visit is always light, deliberately ignoring `prefers-color-scheme`.**
+
+The original decision was "light default, honors OS preference." Those two things
+quietly conflict, and the conflict resolves badly for this particular site: most of the
+audience — engineers, technical hiring managers — runs dark system-wide. Honoring the
+OS would mean the warm light palette, which is the art-directed one and the whole point
+of the "warm/crafted" direction, is seen by almost nobody.
+
+A portfolio is closer to a printed piece than an app. Controlling the first impression
+is worth more here than deferring to a system setting. **An explicit choice is still
+respected** — one click on the toggle persists across visits, so nobody is fought with
+twice.
+
+This is a defensible-either-way call, not a settled best practice. For an app or
+anything used repeatedly, honoring the OS is correct and this would be the wrong
+choice. Reversal is two lines; the restore snippet is in `src/index.html`.
 
 **Accessibility targets:** semantic landmarks, logical heading hierarchy, visible focus
 states, keyboard-navigable throughout, alt text on every artifact, WCAG AA contrast
