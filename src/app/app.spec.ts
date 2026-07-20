@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { CONTACT_LINKS, NOW, PROJECTS, SECTIONS, VISUAL_WORK } from './data/site';
+import { ARC, CONTACT_LINKS, NOW, PROJECTS, SECTIONS, TECH_GROUPS, VISUAL_WORK } from './data/site';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -47,6 +47,32 @@ describe('App', () => {
     const compiled = await render();
     for (const link of CONTACT_LINKS) {
       expect(compiled.querySelector(`a[href="${link.href}"]`)).toBeTruthy();
+    }
+  });
+
+  /* The links used to appear in both the contact section and the footer, which
+     showed the same three addresses twice inside one screen height. */
+  it('should render each contact link exactly once', async () => {
+    const compiled = await render();
+    for (const link of CONTACT_LINKS) {
+      expect(compiled.querySelectorAll(`a[href="${link.href}"]`).length).toBe(1);
+    }
+  });
+
+  it('should render the arc and every technology group', async () => {
+    const compiled = await render();
+
+    const arcText = compiled.querySelector('section#arc')?.textContent ?? '';
+    for (const paragraph of ARC) {
+      expect(arcText).toContain(paragraph.slice(0, 40));
+    }
+
+    const stackText = compiled.querySelector('section#stack')?.textContent ?? '';
+    for (const group of TECH_GROUPS) {
+      expect(stackText).toContain(group.label);
+      for (const item of group.items) {
+        expect(stackText).toContain(item);
+      }
     }
   });
 

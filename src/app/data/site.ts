@@ -129,6 +129,111 @@ export const PROJECTS: readonly Project[] = [
   },
 ];
 
+/**
+ * SPEC.md §6.5 — short, and honest about the non-linear part.
+ *
+ * The going-back-to-manufacturing step is kept deliberately. A straight line is
+ * the story every portfolio tells; the detour is what makes the claim about
+ * knowing real shops credible rather than asserted.
+ */
+export const ARC: readonly string[] = [
+  'I started on the shop floor — production, CNC programming, quality control. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
+  'By 2011 I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. Then I went back to manufacturing engineering for two years — which sounds like a step sideways and wasn’t. It’s where I learned which abstractions survive contact with a real shop, and which fall apart the first time someone has to cut a part from them.',
+  'Six years of design-automation consulting after that, then production software at Stratasys. No computer science degree — an associate’s in computer information systems, and the rest learned on the job.',
+];
+
+export interface TechGroup {
+  readonly label: string;
+  readonly items: readonly string[];
+}
+
+/**
+ * Grouped, scannable, text only. No logo grid — vendor logos are noise and age
+ * badly as brands rebrand (SPEC.md §6.6).
+ */
+export const TECH_GROUPS: readonly TechGroup[] = [
+  {
+    label: 'Core',
+    items: [
+      'C#',
+      '.NET / ASP.NET Core',
+      'C',
+      'TypeScript',
+      'Angular',
+      'NgRx',
+      'SQL Server',
+      'Entity Framework',
+    ],
+  },
+  {
+    label: 'CAD, manufacturing & geometry',
+    items: [
+      'Autodesk Inventor API',
+      'AutoCAD API',
+      'Polygonica',
+      'three.js',
+      'WebGL',
+      'glTF',
+      'iLogic',
+      'ETO configurators',
+      'parametric modelling',
+      'CNC programming',
+      'AlphaCam',
+      'VBA',
+      'mechanical drafting',
+      'ERP / MRP / MES',
+    ],
+  },
+  {
+    label: 'Applied math',
+    items: [
+      'vector math',
+      'matrices',
+      'quaternions',
+      'transforms',
+      'computational geometry',
+    ],
+  },
+  {
+    label: 'AI & LLM',
+    items: [
+      'MCP',
+      'agentic tool orchestration',
+      'multi-provider LLM architecture',
+      'Claude API',
+      'OpenAI API',
+      'Gemini API',
+      'Ollama',
+      'RAG',
+      'Semantic Kernel',
+      'Azure AI Foundry',
+      'Azure Document Intelligence',
+    ],
+  },
+  {
+    label: 'Platform & infrastructure',
+    items: [
+      'Azure',
+      'Docker',
+      'CI/CD',
+      'SignalR',
+      'RabbitMQ',
+      'Auth0',
+      'Roslyn',
+      'Nginx',
+      'Cloudflare Tunnel',
+      'Proxmox',
+      'WASM / Wasmtime',
+    ],
+  },
+];
+
+export const TECH_NOTE =
+  'Production work and side projects both. The CAD, geometry, and .NET work runs years deep; the WASM and self-hosting is where evenings go.';
+
+export const CONTACT_LEDE =
+  'If you’re building software where the output is a physical object — manufacturing, CAD, geometry, anything that ends up as a real part — I’d like to hear about it.';
+
 export interface ContactLink {
   readonly label: string;
   readonly href: string;

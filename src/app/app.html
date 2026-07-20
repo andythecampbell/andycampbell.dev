@@ -144,27 +144,82 @@
       }
     </section>
 
+    <!-- ── The arc ──────────────────────────────────────────────────────
+         Short, and told plainly. The first paragraph gets display type because
+         it's the hook; the rest steps down to body. SPEC.md §6.5 -->
     <section id="arc" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="The arc" />
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — shop floor to software, told honestly including the non-linear part.
-        Six sentences at the outside. SPEC.md §6.5
-      </p>
+
+      @for (paragraph of arc; track $index) {
+        @if ($first) {
+          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+            {{ paragraph }}
+          </p>
+        } @else {
+          <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+            {{ paragraph }}
+          </p>
+        }
+      }
     </section>
 
+    <!-- ── Technologies ─────────────────────────────────────────────────
+         Grouped and scannable. Text labels, never a logo grid — vendor logos
+         are noise and age badly as brands rebrand. SPEC.md §6.6 -->
     <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="Technologies" />
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — five groups, text labels, no logo grid. SPEC.md §6.6
+
+      <!-- Definition list: the group label genuinely defines its terms, so the
+           semantics are real rather than decorative. -->
+      <dl class="mt-10 space-y-10">
+        @for (group of techGroups; track group.label) {
+          <div class="grid gap-x-10 gap-y-3 sm:grid-cols-[13rem_1fr]">
+            <dt class="font-mono text-xs tracking-widest text-ink-muted uppercase">
+              {{ group.label }}
+            </dt>
+            <dd>
+              <ul class="flex flex-wrap gap-x-4 gap-y-2">
+                @for (item of group.items; track item) {
+                  <li class="font-body text-sm text-ink">{{ item }}</li>
+                }
+              </ul>
+            </dd>
+          </div>
+        }
+      </dl>
+
+      <p class="mt-12 max-w-[65ch] font-body text-sm leading-relaxed text-ink-muted">
+        {{ techNote }}
       </p>
     </section>
 
+    <!-- ── Contact ──────────────────────────────────────────────────────
+         Says what kind of problem is worth an email rather than just listing
+         addresses. The footer carries the compact version. SPEC.md §6.7 -->
     <section id="contact" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="Contact" />
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — the links live in the footer for now; this section decides whether it
-        duplicates them or defers to them. SPEC.md §6.7
+
+      <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+        {{ contactLede }}
       </p>
+
+      <ul class="mt-10 flex flex-wrap gap-x-10 gap-y-5">
+        @for (link of contactLinks; track link.href) {
+          <li>
+            <span class="block font-mono text-xs tracking-widest text-ink-muted uppercase">
+              {{ link.label }}
+            </span>
+            <a
+              [href]="link.href"
+              [attr.target]="link.external ? '_blank' : null"
+              [attr.rel]="link.external ? 'noopener noreferrer' : null"
+              class="mt-1 block font-body text-base text-ink underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {{ link.display }}
+            </a>
+          </li>
+        }
+      </ul>
     </section>
   </main>
 
