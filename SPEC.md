@@ -222,6 +222,32 @@ Verified metrics available for use:
 business outcome, one engineering outcome. A wall of percentages reads as padding and
 undercuts the "let the specifics carry it" voice. The rest live on the resume.
 
+**Scope the metrics to the project they came from.** They're RapidQuotes numbers, not
+a summary of four years at Stratasys. The copy says so ("the numbers below are from
+that work"), which costs a clause and buys accuracy — an unscoped figure invites the
+reader to assume it covers everything, and that assumption is the kind that collapses
+badly in an interview.
+
+### Division of labour: §6.2 vs §6.3
+
+Settled after building both. **Each section gets one job.**
+
+| | Job | Register |
+|---|---|---|
+| **§6.2 What I build now** | Role, the kind of work, what it achieved | Outcome |
+| **§6.3 Visual work** | How it actually works, next to the artifact | Craft |
+
+The first draft put the STL→glTF pipeline in §6.2 and the screenshot in §6.3, which
+described the same thing twice and gave the earlier, weaker version first. Prose
+explaining a manufacturability check will always lose to a picture of one.
+
+**§6.2 stays high-level on purpose.** RapidQuotes is one project among several years
+of work — good, but "far from everything." Deep detail there makes a single project
+stand in for a career. Keep it to the shape of the work and let the specific systems
+be specific in the sections built around them.
+
+Rhythm across the page: **outcome, then proof.**
+
 ### 6.3 Visual work
 
 **The highest-leverage content on the site.** Design accordingly.
@@ -614,7 +640,15 @@ Blocking or near-blocking. Marked `TODO` in code where placeholders are used.
       back the untrusted-code-execution claim, which is the site's strongest technical
       differentiator. Currently claimed in prose but not shown. See §6.4.
       **This is now the only outstanding content item.**
+- [ ] **A second visual artifact** — Andy has an old pressure-vessel geometry image in
+      mind. Wanted for its own sake, and because a gallery of one reads as a single
+      lucky screenshot while two reads as a body of work. The section is already
+      data-driven and takes additional entries without layout changes.
 - [ ] Additional geometry / CAD-automation visuals — ongoing collection
+- [ ] **Convert the DFM capture to WebP.** Currently a 405kB PNG — larger than every
+      font on the site combined, and the heaviest asset by a wide margin. Expect
+      80–120kB with no visible loss. Needs image tooling (`sharp` as a devDependency,
+      or converted externally); no converter on this machine.
 - [ ] Replacement heatmap screenshot, if Andy re-captures it (mock up with the current one)
 
 **Needs a decision**

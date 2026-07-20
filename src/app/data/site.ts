@@ -40,7 +40,7 @@ export interface Metric {
 
 export const NOW = {
   lede: 'Senior full-stack developer at Stratasys since 2022, building production software for industrial 3D printing.',
-  body: 'I led the redesign of RapidQuotes — Stratasys Direct Manufacturing’s quoting portal, where a customer uploads a part, has it checked against the real constraints of the process that will build it, and orders it. The manufacturability views come out of a C# pipeline I built: STL in, glTF out, wall-thickness values baked into the mesh so the browser can render the analysis directly.',
+  body: 'Mostly .NET and Angular, on systems where what gets ordered is a physical part rather than a row in a database. I led the redesign of Stratasys Direct Manufacturing’s quoting portal; the numbers below are from that work.',
   /* Two, not five. The resume carries the other three; a wall of percentages
      reads as padding and undercuts the voice. SPEC.md §6.2 */
   metrics: [
@@ -69,7 +69,7 @@ export interface Artifact {
 
 export const VISUAL_WORK = {
   lede: 'A part gets checked against the process that will actually build it, before anyone quotes a price.',
-  body: 'The thickness analysis comes out of Polygonica, a licensed geometry kernel. The work was the pipeline around it — C# turning an uploaded STL into glTF with per-vertex thickness baked into the mesh, so the browser renders the analysis directly instead of recomputing it.',
+  body: 'A customer uploads a part and it gets checked against the real constraints of the process that will build it. The thickness analysis comes out of Polygonica, a licensed geometry kernel; the work was the pipeline around it — C# turning an uploaded STL into glTF with per-vertex thickness baked into the mesh, so the browser renders the analysis directly instead of recomputing it.',
   artifacts: [
     {
       src: 'media/rapidquotes-dfm-heatmap.png',
