@@ -274,10 +274,34 @@ problem got solved. It is not the subject of the section.
 - The architecture is why the project got finished — the hard part was making
   untrusted user-authored code safe to execute, not picking indicators. Present that
   as **problem-solving**, not as a trophy cabinet.
-- Technical facts: ASP.NET Core + Angular + SQL Server, 600M+ historical records,
-  Roslyn dynamic compilation, multi-provider LLM orchestration (Anthropic, OpenAI,
-  Gemini, Ollama), agentic tool-use with SSE streaming, custom MCP server, Auth0,
-  Docker, self-hosted via Proxmox/Nginx/Cloudflare Tunnel.
+- Technical facts: ASP.NET Core + Angular + SQL Server, Roslyn dynamic compilation,
+  multi-provider LLM orchestration (Anthropic, OpenAI, Gemini, Ollama), agentic
+  tool-use with SSE streaming, custom MCP server, Auth0, Docker, self-hosted via
+  Proxmox/Nginx/Cloudflare Tunnel.
+
+**Scale is stated as "billions of records" — never a precise count.** (Decided.)
+
+The brief says "600M+ historical records." That was accurate when written and
+silently stopped being so — nobody re-checked, because it had turned into a
+fact-shaped thing rather than a measurement. **`_source/andy-campbell-profile.md`
+still contains the stale figure; do not copy it forward.**
+
+Any *exact* count regenerates the problem. A fresh number buys maybe eighteen
+months before going stale the same silent way, and a wrong figure on a personal
+site reads as either careless or inflated with no way for a visitor to tell which.
+"Billions" conveys the same thing, survives growth, and doesn't invite anyone to
+check the math.
+
+**Placement rule: scale appears where it explains difficulty, not as a standalone
+claim.** The record count isn't what makes the system interesting — running
+user-authored code against a full historical replay in a real-time loop is. Stated
+that way, the number is context for why the problem is hard, which is the one job
+it can do honestly. Stated alone, it's an infrastructure flex: a figure with no
+consequence attached, which is the register §6.4 exists to avoid.
+
+Good: "…executing untrusted strategy code against billions of records of history,
+in a live loop."
+Bad: "Billions of records."
 - **Live at `sidequestquant.com`.** Publicly reachable; the app presents a sign-up
   screen and offers a request-access path to anyone not whitelisted. **The product
   handles the gate itself, so a direct link is fine** — no custom request flow needed
