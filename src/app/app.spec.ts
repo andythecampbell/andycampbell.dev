@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { CONTACT_LINKS, NOW, SECTIONS } from './data/site';
+import { CONTACT_LINKS, NOW, SECTIONS, VISUAL_WORK } from './data/site';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -59,6 +59,19 @@ describe('App', () => {
       expect(text).toContain(m.from);
       expect(text).toContain(m.to);
       expect(text).toContain(m.change);
+    }
+  });
+
+  /* The gallery is the highest-leverage content on the site, and it's driven by
+     data — so a typo'd path fails silently as a broken image rather than loudly
+     at build time. Alt text is checked because these images carry real
+     information; a decorative empty alt would be wrong here. */
+  it('should render every artifact with meaningful alt text', async () => {
+    const compiled = await render();
+    for (const artifact of VISUAL_WORK.artifacts) {
+      const img = compiled.querySelector<HTMLImageElement>(`img[src="${artifact.src}"]`);
+      expect(img).toBeTruthy();
+      expect(img?.getAttribute('alt')?.length ?? 0).toBeGreaterThan(20);
     }
   });
 

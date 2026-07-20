@@ -63,11 +63,48 @@
 
     <!-- ── Placeholders ─────────────────────────────────────────────────
          `scroll-mt-24` keeps anchor targets clear of the sticky nav. -->
+    <!-- ── Visual work ──────────────────────────────────────────────────
+         Highest-leverage content on the site. The artifact does the talking,
+         so the prose stays out of its way. SPEC.md §6.3
+
+         `-mx-6` cancels the parent's `px-6` so the figure bleeds to the screen
+         edge on narrow viewports, where 24px of gutter costs real image width.
+         `sm:mx-0` puts the gutter back once there's room to spare. -->
     <section id="work" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="Visual work" />
-      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        Placeholder — the DFM validation capture, shown large in a consistent frame.
-        Highest-leverage content on the site; gets the most design attention. SPEC.md §6.3
+
+      <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+        {{ visualWork.lede }}
+      </p>
+
+      @for (a of visualWork.artifacts; track a.src) {
+        <figure class="mt-12">
+          <!-- Every capture gets the same frame — border, radius, surface
+               background. The screenshots are chromatically unrelated to each
+               other and to the site; the identical frame is what makes them
+               read as a set instead of as clip art. Never recolour a capture
+               to force harmony: it misrepresents the product. -->
+          <div class="-mx-6 overflow-hidden border-y border-rule bg-surface sm:mx-0 sm:rounded-sm sm:border">
+            <img
+              [src]="a.src"
+              [alt]="a.alt"
+              [style.aspect-ratio]="a.ratio"
+              class="w-full object-cover object-top"
+              width="1846"
+              height="750"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <figcaption class="mt-5 max-w-[68ch] font-body text-sm leading-relaxed text-ink-muted">
+            {{ a.caption }}
+          </figcaption>
+        </figure>
+      }
+
+      <p class="mt-12 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        {{ visualWork.body }}
       </p>
     </section>
 

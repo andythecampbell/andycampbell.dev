@@ -49,6 +49,41 @@ export const NOW = {
   ] as readonly Metric[],
 } as const;
 
+/**
+ * A visual artifact in the work gallery.
+ *
+ * Kept as data so an artifact can be added, swapped, or removed in one edit —
+ * a hard requirement, not a convenience: the DFM capture is employer product UI
+ * and has to be pullable in minutes without touching layout (SPEC.md §9).
+ */
+export interface Artifact {
+  readonly src: string;
+  readonly alt: string;
+  readonly caption: string;
+  /**
+   * Displayed aspect ratio, as `width/height`. Often narrower than the file's
+   * own ratio because the frame crops — see the note on this capture below.
+   */
+  readonly ratio: string;
+}
+
+export const VISUAL_WORK = {
+  lede: 'A part gets checked against the process that will actually build it, before anyone quotes a price.',
+  body: 'The thickness analysis comes out of Polygonica, a licensed geometry kernel. The work was the pipeline around it — C# turning an uploaded STL into glTF with per-vertex thickness baked into the mesh, so the browser renders the analysis directly instead of recomputing it.',
+  artifacts: [
+    {
+      src: 'media/rapidquotes-dfm-heatmap.png',
+      alt: 'A 3D model of a moulded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size — the feature size check showing a warning.',
+      caption:
+        'RapidQuotes manufacturability validation. Green is within tolerance; red and orange mark walls too thin for the process. The customer can accept the risk or send the part for manual review.',
+      /* Source file is 1846x842. Cropped to 1846x750 to drop the pricing strip
+         along the bottom, which was cut mid-element and pulled the read toward
+         "shopping cart" rather than "engineering". SPEC.md §6.3 */
+      ratio: '1846/750',
+    },
+  ] as readonly Artifact[],
+} as const;
+
 export interface ContactLink {
   readonly label: string;
   readonly href: string;
