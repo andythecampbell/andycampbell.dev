@@ -433,21 +433,59 @@ and quietly omitting the credential would undercut that.
 Grouped exactly as the brief groups them — the breadth is the point, but an
 undifferentiated wall reads as noise:
 
-- **Core stack** — C#, .NET/ASP.NET Core, Angular, TypeScript, NgRx, JavaScript, SQL Server, Entity Framework, REST APIs
+- **Core stack** — C#, .NET/ASP.NET Core, C, Angular, TypeScript, NgRx, SQL Server, Entity Framework, REST APIs, SignalR, RabbitMQ
 - **CAD / manufacturing / geometry** — Autodesk Inventor API, AutoCAD API, **Polygonica**, **three.js / WebGL**, iLogic, CAD automation, ETO configurators, parametric modeling, KCL (Zoo/KittyCAD), CNC programming, AlphaCam, VBA, mechanical drafting, ERP/MRP/MES, 3D printing workflows
 - **Applied math** — vector math, matrices, quaternions, transforms, 3D geometry
 - **AI / ML tooling** — MCP (Model Context Protocol), agentic tool orchestration, multi-provider LLM architecture, Claude API, OpenAI API, Gemini API, Ollama, Azure AI Foundry, Document Intelligence, Semantic Kernel, RAG
 - **Platform / infrastructure** — Azure (App Services, SQL, DevOps Pipelines), Docker, CI/CD, Git, Proxmox, Nginx, Cloudflare Tunnel, Auth0, Roslyn, WASM/Wasmtime/WASI 0.2/Component Model (WIT), self-hosted deployment
 
-**Note:** the resume lists a tighter set than the brief. Items appearing only in the
-brief (KCL, Azure AI Foundry, Semantic Kernel, WASM/Wasmtime, Proxmox) are real but
-weighted toward personal projects and exploration rather than shipped production work.
-That's fine to list — just worth a light structural distinction, or at minimum not
-presenting a home-lab tool with the same weight as six years of Inventor API work.
-Over-claiming is the one thing that would undercut this whole site.
+### Where the line goes
 
-**`three.js`, `WebGL`, and `Polygonica` are newly surfaced from the resume and are
-among the most important entries here** — they're the substance behind the hero visual.
+Every real system has dozens more technologies in it than belong on a page. The
+test for inclusion is not "did I use it" — it's:
+
+> **Would naming this change what a reader believes I can do?**
+
+Three ways to earn a slot:
+
+1. **Core** — you work in it constantly. C#, Angular, TypeScript, SQL.
+2. **Differentiating** — unusual enough to signal something on its own. C in a
+   web developer's list. A commercial geometry kernel. WASM. Most engineers with
+   this job title have touched none of these.
+3. **Load-bearing** — required context for another claim on the page. `three.js`
+   and `glTF` have to be there because the visual work section depends on them.
+
+Everything else is **implied and should be cut**. Nobody is surprised that a
+production .NET application has a message queue, a websocket layer, or an ORM.
+Listing RabbitMQ and SignalR doesn't add belief — and the cost is real: a list of
+forty items makes it impossible to tell which five you're actually strong in.
+Exhaustiveness reads as keyword-stuffing, which is the register of a resume being
+fed to an applicant tracking system, not of an engineer talking about their work.
+
+**Prose is stricter than the list.** In §6.2 and §6.4, name a technology only when
+it carries information about the difficulty or the shape of the work. The list can
+afford completeness; a sentence can't.
+
+### Don't let a dependency read as your implementation
+
+**Polygonica is a licensed commercial geometry kernel, not something Andy wrote.**
+The thickness analysis comes out of it; the work was integrating it — a C# pipeline
+converting STL to glTF with wall-thickness values baked into the mesh so the browser
+renders the analysis directly.
+
+That distinction has to survive into the copy. Writing "geometry running on
+Polygonica" implies ownership of the hard part and hands credit to a vendor for the
+part that *was* his. The integration is the more interesting story anyway: interop
+with a C library, a format conversion, and a decision about where to do the work so
+the browser doesn't have to.
+
+Listing Polygonica is still worth it under rule 2 — very few developers have used a
+commercial kernel. It just belongs in the tools group, never phrased as a skill.
+
+**Same caution for the brief-only items** (KCL, Azure AI Foundry, Semantic Kernel,
+WASM/Wasmtime, Proxmox). Real, but weighted toward side projects and exploration.
+Fine to list; not fine to give a home-lab tool the same visual weight as six years
+of Inventor API work. Over-claiming is the one thing that would undercut this site.
 
 Text labels with monospace styling. **No logo grid** — vendor logos are visual noise
 and age badly as brands rebrand.
