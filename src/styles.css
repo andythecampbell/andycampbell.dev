@@ -8,6 +8,16 @@
 
 @import "tailwindcss";
 
+/* Self-hosted faces via Fontsource — no external CDN, so nothing render-blocking
+   and no third-party request leaking visitor IPs (SPEC.md §4.3).
+
+   These resolve to the weight-axis-only builds. Fraunces also ships `full.css`
+   with its SOFT/WONK/opsz axes, but that's 121kB against 37kB for what we use,
+   and the character it already has at default settings is what was chosen. */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/inter";
+@import "@fontsource/ibm-plex-mono";
+
 /* Dark mode is driven by a `.dark` class on <html>, not by `prefers-color-scheme`
    alone — we need a manual toggle that can override the OS setting. This
    redefines Tailwind's built-in `dark:` variant to look for that class instead.
@@ -25,6 +35,13 @@
   --ink-muted: #57534e;
   --rule:      #e0d9d0;
   --accent:    #5f4330; /* deep walnut */
+
+  /* Type roles, not typeface names — see the note in @theme below.
+     Changing the whole typographic direction means editing these three lines.
+     Chosen from a three-way specimen comparison; Fraunces won on character. */
+  --f-display: "Fraunces Variable", Georgia, serif;
+  --f-body:    "Inter Variable", system-ui, sans-serif;
+  --f-mono:    "IBM Plex Mono", ui-monospace, monospace;
 }
 
 .dark {
@@ -53,11 +70,16 @@
   --color-rule:      var(--rule);
   --color-accent:    var(--accent);
 
-  /* Placeholder stacks. Real self-hosted, subset faces land in Phase 1 once
-     the heading typeface is chosen against actual content (SPEC.md §4.3). */
-  --font-sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
-  --font-mono:  ui-monospace, "Cascadia Code", "Segoe UI Mono", monospace;
+  /* Named by role rather than by classification — `font-display` says what the
+     type is for, `font-serif` only says what it looks like. If the heading face
+     ever changes from a serif to a grotesque, the class names stay honest.
+
+     Same `inline` + `var()` indirection as the colors above, for the same
+     reason: it lets a pairing be swapped by reassigning three custom properties
+     instead of rewriting every template. */
+  --font-display: var(--f-display);
+  --font-body:    var(--f-body);
+  --font-mono:    var(--f-mono);
 }
 
 /* --- Base ------------------------------------------------------------------ */
@@ -69,6 +91,7 @@
   body {
     background-color: var(--bg);
     color: var(--ink);
+    font-family: var(--f-body);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }

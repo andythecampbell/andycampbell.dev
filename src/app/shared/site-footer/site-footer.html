@@ -1,0 +1,25 @@
+<footer class="border-t border-rule">
+  <div class="mx-auto max-w-5xl px-6 py-14">
+    <ul class="flex flex-wrap gap-x-10 gap-y-4">
+      @for (link of links; track link.href) {
+        <li>
+          <span class="block font-mono text-xs tracking-widest text-ink-muted uppercase">
+            {{ link.label }}
+          </span>
+          <a
+            [href]="link.href"
+            [attr.target]="link.external ? '_blank' : null"
+            [attr.rel]="link.external ? 'noopener noreferrer' : null"
+            class="mt-1 block font-body text-sm text-ink underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            {{ link.display }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <p class="mt-12 font-mono text-xs text-ink-muted">
+      {{ site.location }} · {{ year }}
+    </p>
+  </div>
+</footer>

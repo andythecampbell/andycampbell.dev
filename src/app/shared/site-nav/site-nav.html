@@ -1,0 +1,40 @@
+<!--
+  Sticky, minimal. Name left; anchors and theme toggle right (SPEC.md §5).
+
+  Anchors are hidden below `md` rather than collapsed into a hamburger. On a
+  single-page scrolling site the anchors are a convenience, not the only way to
+  reach the content — scrolling works. A hamburger would add a menu, an overlay,
+  focus trapping, and an escape handler to save a narrow visitor two seconds.
+-->
+<header
+  class="sticky top-0 z-20 border-b border-rule bg-bg/85 backdrop-blur-sm"
+>
+  <nav
+    class="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-4"
+    aria-label="Primary"
+  >
+    <a
+      href="#top"
+      class="font-display text-base tracking-tight text-ink transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+    >
+      {{ site.name }}
+    </a>
+
+    <div class="flex items-center gap-6">
+      <ul class="hidden items-center gap-6 md:flex">
+        @for (s of sections; track s.id) {
+          <li>
+            <a
+              [href]="'#' + s.id"
+              class="font-mono text-xs tracking-widest text-ink-muted uppercase transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            >
+              {{ s.label }}
+            </a>
+          </li>
+        }
+      </ul>
+
+      <app-theme-toggle />
+    </div>
+  </nav>
+</header>

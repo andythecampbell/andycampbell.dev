@@ -1,49 +1,81 @@
 <!--
-  Phase 0 — pipeline verification page.
+  Phase 1 — structural shell.
 
-  Not the real site. This exists to prove the whole chain works end to end:
-  Tailwind v4 compiling, design tokens resolving through `@theme inline`,
-  the light/dark class toggle, and static prerendering to real HTML.
-
-  Replaced in Phase 1+ by the actual sections (SPEC.md §5).
+  Nav, footer, and the section skeleton with working anchors. Hero copy is real
+  (SPEC.md §6.1 option A); the remaining sections are deliberate placeholders
+  that name what belongs in them. Phase 2+ fills them in.
 -->
-<div class="flex min-h-dvh flex-col bg-bg font-sans text-ink">
-  <header class="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-6">
-    <span class="font-mono text-xs tracking-widest text-ink-muted uppercase">andycampbell.dev</span>
+<div id="top" class="min-h-dvh bg-bg text-ink">
+  <app-site-nav />
 
-    <button
-      type="button"
-      (click)="toggleTheme()"
-      class="rounded-sm border border-rule px-3 py-1.5 font-mono text-xs text-ink-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-      [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
-    >
-      {{ isDark() ? 'Light' : 'Dark' }}
-    </button>
-  </header>
+  <main class="mx-auto max-w-5xl px-6">
+    <!-- ── Hero ─────────────────────────────────────────────────────────
+         One sentence. Nothing competes with it, so no image, no headshot,
+         no call-to-action row. SPEC.md §6.1 -->
+    <section class="py-28 sm:py-36">
+      <p class="font-mono text-xs tracking-widest text-ink-muted uppercase">
+        {{ site.role }}
+      </p>
 
-  <main class="mx-auto w-full max-w-3xl grow px-6 py-20">
-    <p class="font-mono text-xs tracking-widest text-accent uppercase">Phase 0 — pipeline check</p>
+      <h1 class="mt-6 max-w-[16ch] font-display text-5xl leading-[1.05] tracking-tight sm:text-7xl">
+        {{ site.name }}
+      </h1>
 
-    <h1 class="mt-6 font-serif text-4xl leading-tight sm:text-5xl">Andy Campbell</h1>
+      <p class="mt-8 max-w-[54ch] font-body text-xl leading-relaxed text-ink-muted sm:text-2xl">
+        I came up through the shop floor — CNC, drafting, CAD automation — and now build
+        production software for manufacturing.
+      </p>
+    </section>
 
-    <p class="mt-6 max-w-[65ch] text-lg leading-relaxed text-ink-muted">
-      I came up through the shop floor — CNC, drafting, CAD automation — and now build production
-      software for manufacturing.
-    </p>
+    <!-- ── Placeholder sections ─────────────────────────────────────────
+         `scroll-mt-24` keeps anchor targets clear of the sticky nav. Without
+         it every jump lands with the heading hidden behind the header. -->
+    <section id="now" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">What I build now</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — Stratasys, RapidQuotes, and the manufacturing-software focus. Two metrics
+        maximum: revenue growth and checkout time. SPEC.md §6.2
+      </p>
+    </section>
 
-    <hr class="my-12 border-rule" />
+    <section id="work" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Visual work</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — the DFM validation capture, shown large in a consistent frame. Highest-leverage
+        content on the site; gets the most design attention. SPEC.md §6.3
+      </p>
+    </section>
 
-    <ul class="space-y-3 font-mono text-sm text-ink-muted">
-      <li>Angular 21 · prerendered to static HTML</li>
-      <li>Tailwind v4 · CSS-first <code class="text-accent">&#64;theme</code> tokens</li>
-      <li>Warm palette · light + dark, class-driven</li>
-      <li>Reduced-motion honored · no-flash theme boot</li>
-    </ul>
+    <section id="projects" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Projects</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — Side Quest Quant, led by the problem rather than the domain. SPEC.md §6.4
+      </p>
+    </section>
+
+    <section id="arc" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">The arc</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — shop floor to software, told honestly including the non-linear part. Six
+        sentences at the outside. SPEC.md §6.5
+      </p>
+    </section>
+
+    <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Technologies</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — five groups, text labels, no logo grid. SPEC.md §6.6
+      </p>
+    </section>
+
+    <section id="contact" class="scroll-mt-24 border-t border-rule py-24">
+      <h2 class="font-mono text-xs tracking-widest text-accent uppercase">Contact</h2>
+      <p class="mt-8 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+        Placeholder — the links live in the footer for now; this section decides whether it
+        duplicates them or defers to them. SPEC.md §6.7
+      </p>
+    </section>
   </main>
 
-  <footer class="mx-auto w-full max-w-3xl px-6 py-8">
-    <p class="border-t border-rule pt-6 font-mono text-xs text-ink-muted">
-      Scaffold only — see SPEC.md
-    </p>
-  </footer>
+  <app-site-footer />
 </div>
