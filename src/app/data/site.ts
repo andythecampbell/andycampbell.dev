@@ -17,6 +17,7 @@ export const SECTIONS: readonly NavSection[] = [
   { id: 'work', label: 'Work' },
   { id: 'projects', label: 'Projects' },
   { id: 'arc', label: 'Arc' },
+  { id: 'teammate', label: 'Teammate' },
   { id: 'stack', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
 ];
@@ -25,6 +26,21 @@ export const SITE = {
   name: 'Andy Campbell',
   role: 'Senior full-stack developer',
   location: 'San Diego, CA',
+} as const;
+
+/**
+ * The hero thesis (profile v2). The positioning moved from "manufacturing-software
+ * engineer" to "versatile problem-solver whose center of gravity is the
+ * physical/digital boundary." SPEC.md §6.1.
+ *
+ * Tuned deliberately away from "I solve hard problems" as the opener — that's one
+ * of the most generic lines in tech. The distinctive clause ("the domain changes,
+ * the appetite doesn't") carries the versatility idea; the second sentence names
+ * the rare part, the spatial specialty. The generic and the specific are never
+ * left to stand alone.
+ */
+export const HERO = {
+  lede: 'I go deep on hard problems until they’re solved — the domain changes, the appetite doesn’t. I’m happiest where software meets the physical world: 3D, geometry, manufacturing.',
 } as const;
 
 /**
@@ -39,7 +55,10 @@ export interface Metric {
 }
 
 export const NOW = {
-  lede: 'Senior full-stack developer at Stratasys since 2022, building production software for industrial 3D printing.',
+  /* Reads as one expression of the hero thesis rather than a competing headline —
+     "that" points back at the physical-world sentence directly above. Also drops
+     the job-title repeat, since the hero eyebrow already carries it. SPEC.md §6.2 */
+  lede: 'Right now that’s manufacturing at scale: production software for industrial 3D printing, at Stratasys since 2022.',
   body: 'Mostly .NET and Angular, on systems where what gets ordered is a physical part rather than a row in a database. Most of the work comes down to the same shape: more throughput, less time spent waiting. The numbers below are from the quoting portal redesign I led.',
   /* Two, not five. The resume carries the other three; a wall of percentages
      reads as padding and undercuts the voice. SPEC.md §6.2 */
@@ -108,7 +127,7 @@ export const PROJECTS: readonly Project[] = [
        "not a finance person" note appears once as a clause. SPEC.md §6.4 */
     lede: 'Letting someone write their own code and run it inside your application — safely, at scale, in a loop that never stops.',
     body: [
-      'Side Quest Quant is a platform for writing, testing, and running trading strategies. I don’t trade; I wanted to know whether untrusted, user-authored code could be executed safely in a live loop. That turned out to be the entire problem.',
+      'Side Quest Quant is a platform for writing, testing, and running trading strategies. I don’t trade; I wanted to know whether untrusted, user-authored code could be executed safely in a live loop. That turned out to be the entire problem — and exactly the kind of thing I’ll chase into a domain I have no stake in.',
       'Strategies are written in C# and compiled at runtime with Roslyn, then replayed against billions of records of history before they go near a live market. Agents running across several LLM providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor.',
     ],
     generalization:
@@ -132,24 +151,60 @@ export const PROJECTS: readonly Project[] = [
 /**
  * SPEC.md §6.5 — short, and honest about the non-linear part.
  *
+ * Reframed for profile v2 as *serial depth*: the first line names the pattern
+ * (find the hard part, stay until it's solved, build on it), so the breadth
+ * reads as depth-across-domains rather than as a restless job history.
+ *
  * The going-back-to-manufacturing step is kept deliberately. A straight line is
  * the story every portfolio tells; the detour is what makes the claim about
  * knowing real shops credible rather than asserted.
  */
 export const ARC: readonly string[] = [
+  'The path looks broad. Up close it’s one move repeated: find the hard part, stay until it’s solved, build on what’s left — then go looking for the next one.',
   'I started on the shop floor — production, CNC programming, quality control. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
   'By 2011 I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. Then I went back to manufacturing engineering for two years — which sounds like a step sideways and wasn’t. It’s where I learned which abstractions survive contact with a real shop, and which fall apart the first time someone has to cut a part from them.',
   'Six years of design-automation consulting after that, then production software at Stratasys. No computer science degree — an associate’s in computer information systems, and the rest learned on the job.',
 ];
 
+/**
+ * SPEC.md §6.6 — "Working with me". New in profile v2, and the thing a resume
+ * genuinely can't do.
+ *
+ * HIGHEST VOICE RISK ON THE SITE. Claims about one's own character read as
+ * boasting the instant they're phrased as claims, and the voice guide forbids
+ * self-aggrandizement outright. Written to describe behaviour concretely and let
+ * the reader draw the conclusion — "the friction is cheaper than the rework",
+ * not "I'm a great collaborator." This is the section most likely to need Andy's
+ * own hand; it's his voice about himself, which no one else can ghost-write well.
+ */
+export const TEAMMATE = {
+  lede: 'The part a resume can’t show is what it’s like to work next to me.',
+  body: [
+    'I’ll argue a design decision with you — directly, and early — because the friction is cheaper than the rework. It’s not about winning the point; the team just lands a better answer when someone actually pushes on it.',
+    'I like teaching, and I like the kind of team where people get sharper for being near each other. My best work happens in real one-on-one relationships, not in a standup performance or a broadcast channel.',
+    'Mostly I try to be the coworker I’d want to have.',
+  ],
+} as const;
+
 export interface TechGroup {
   readonly label: string;
   readonly items: readonly string[];
+  /**
+   * The center-of-gravity cluster (profile v2). Rendered with the accent label
+   * so the eye lands on it first — "feature it accordingly" without breaking the
+   * restraint of the section. Exactly one group should set this.
+   */
+  readonly featured?: boolean;
 }
 
 /**
  * Grouped, scannable, text only. No logo grid — vendor logos are noise and age
  * badly as brands rebrand (SPEC.md §6.6).
+ *
+ * Profile v2 folds the old "CAD / manufacturing / geometry" and "Applied math"
+ * groups into one featured cluster. The merge is the point: the spatial work and
+ * the math under it are the same strength, and shown together they read as the
+ * center of gravity rather than as two adjacent lists.
  */
 export const TECH_GROUPS: readonly TechGroup[] = [
   {
@@ -166,32 +221,28 @@ export const TECH_GROUPS: readonly TechGroup[] = [
     ],
   },
   {
-    label: 'CAD, manufacturing & geometry',
+    label: 'Physical, digital & spatial',
+    featured: true,
     items: [
       'Autodesk Inventor API',
       'AutoCAD API',
-      'Polygonica',
+      'iLogic',
+      'CAD automation',
+      'ETO configurators',
+      'parametric modelling',
+      'KCL (Zoo / KittyCAD)',
       'three.js',
       'WebGL',
       'glTF',
-      'iLogic',
-      'ETO configurators',
-      'parametric modelling',
-      'CNC programming',
-      'AlphaCam',
-      'VBA',
-      'mechanical drafting',
-      'ERP / MRP / MES',
-    ],
-  },
-  {
-    label: 'Applied math',
-    items: [
+      'Polygonica',
+      'computational geometry',
       'vector math',
       'matrices',
       'quaternions',
       'transforms',
-      'computational geometry',
+      'CNC programming',
+      'AlphaCam',
+      'mechanical drafting',
     ],
   },
   {
@@ -229,7 +280,7 @@ export const TECH_GROUPS: readonly TechGroup[] = [
 ];
 
 export const TECH_NOTE =
-  'Production work and side projects both. The CAD, geometry, and .NET work runs years deep; the WASM and self-hosting is where evenings go.';
+  'Grouped by where the depth is, not where the hours are. The spatial and .NET work runs years deep; the newer AI and self-hosting pieces are where evenings go.';
 
 export const CONTACT_LEDE =
   'If you’re building software where the output is a physical object — manufacturing, CAD, geometry, anything that ends up as a real part — I’d like to hear about it.';

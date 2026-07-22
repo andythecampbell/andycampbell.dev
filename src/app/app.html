@@ -7,7 +7,8 @@
 
   <main class="mx-auto max-w-5xl px-6">
     <!-- ── Hero ─────────────────────────────────────────────────────────
-         One sentence, nothing competing with it. No image, no headshot, no
+         The problem-solver thesis, not the manufacturing headline (profile v2).
+         Still one idea, nothing competing with it. No image, no headshot, no
          button row — the sentence is the hook. SPEC.md §6.1 -->
     <section class="py-28 sm:py-36">
       <p class="font-mono text-xs tracking-widest text-ink-muted uppercase">
@@ -18,9 +19,8 @@
         {{ site.name }}
       </h1>
 
-      <p class="mt-8 max-w-[54ch] font-body text-xl leading-relaxed text-ink-muted sm:text-2xl">
-        I came up through the shop floor — CNC, drafting, CAD automation — and now build
-        production software for manufacturing.
+      <p class="mt-8 max-w-[60ch] font-body text-xl leading-relaxed text-ink-muted sm:text-2xl">
+        {{ hero.lede }}
       </p>
     </section>
 
@@ -163,6 +163,25 @@
       }
     </section>
 
+    <!-- ── Working with me ──────────────────────────────────────────────
+         What a resume can't do. Highest voice risk on the site — describe
+         behaviour, let the reader conclude; never claim the virtue outright.
+         SPEC.md §6.6 -->
+    <section id="teammate" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="Working with me" />
+
+      @for (paragraph of teammate.body; track $index; let first = $first) {
+        @if (first) {
+          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+            {{ teammate.lede }}
+          </p>
+        }
+        <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+          {{ paragraph }}
+        </p>
+      }
+    </section>
+
     <!-- ── Technologies ─────────────────────────────────────────────────
          Grouped and scannable. Text labels, never a logo grid — vendor logos
          are noise and age badly as brands rebrand. SPEC.md §6.6 -->
@@ -174,7 +193,15 @@
       <dl class="mt-10 space-y-10">
         @for (group of techGroups; track group.label) {
           <div class="grid gap-x-10 gap-y-3 sm:grid-cols-[13rem_1fr]">
-            <dt class="font-mono text-xs tracking-widest text-ink-muted uppercase">
+            <!-- The featured (center-of-gravity) group takes the accent colour so
+                 the eye lands on it first. Every other label stays muted.
+                 Individual class bindings compose with the static class; a
+                 whole-string [class] binding would fight it. -->
+            <dt
+              class="font-mono text-xs tracking-widest uppercase"
+              [class.text-accent]="group.featured"
+              [class.text-ink-muted]="!group.featured"
+            >
               {{ group.label }}
             </dt>
             <dd>

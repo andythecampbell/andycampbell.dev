@@ -15,7 +15,7 @@ Angular, prerendered to static HTML. No server runtime.
 ## Commands
 
 ```bash
-npm start        # dev server at http://localhost:4200
+npm start        # dev server at http://localhost:4201
 npm run build    # prerender to dist/andycampbell-dev/browser
 npm test         # unit tests (Vitest)
 ```

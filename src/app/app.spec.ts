@@ -1,6 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
-import { ARC, CONTACT_LINKS, NOW, PROJECTS, SECTIONS, TECH_GROUPS, VISUAL_WORK } from './data/site';
+import {
+  ARC,
+  CONTACT_LINKS,
+  HERO,
+  NOW,
+  PROJECTS,
+  SECTIONS,
+  TEAMMATE,
+  TECH_GROUPS,
+  VISUAL_WORK,
+} from './data/site';
 
 describe('App', () => {
   beforeEach(async () => {
@@ -24,6 +34,28 @@ describe('App', () => {
     const compiled = await render();
     expect(compiled.querySelectorAll('h1').length).toBe(1);
     expect(compiled.querySelector('h1')?.textContent).toContain('Andy Campbell');
+  });
+
+  it('should render the hero thesis', async () => {
+    const compiled = await render();
+    /* First ~40 chars, to survive smart-quote / whitespace differences between
+       the source string and the rendered DOM. */
+    expect(compiled.textContent).toContain(HERO.lede.slice(0, 40));
+  });
+
+  it('should render the teammate section lede and body', async () => {
+    const compiled = await render();
+    const text = compiled.querySelector('section#teammate')?.textContent ?? '';
+    expect(text).toContain(TEAMMATE.lede.slice(0, 30));
+    for (const paragraph of TEAMMATE.body) {
+      expect(text).toContain(paragraph.slice(0, 40));
+    }
+  });
+
+  /* Exactly one technology group is the featured center-of-gravity cluster. Two
+     (or zero) would mean the "feature it" signal is broken. */
+  it('should feature exactly one technology group', () => {
+    expect(TECH_GROUPS.filter((g) => g.featured).length).toBe(1);
   });
 
   it('should expose a theme toggle', async () => {

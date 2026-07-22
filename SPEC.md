@@ -1,18 +1,38 @@
 # andycampbell.dev — Build Spec
 
-> Status: **Draft v1** — awaiting content inputs (see §9 Open Items)
-> Source material: `andy-campbell-profile.md`
+> Status: **Draft v2** — reframed thesis, awaiting content inputs (see §9 Open Items)
+> Source material: `andy-campbell-profile-v2.md` (supersedes v1)
 
 ---
+
+> ### ⚑ Thesis change (profile v2)
+>
+> The positioning moved from **"engineer who came up through the trades and builds
+> manufacturing software"** to **"versatile problem-solver whose center of gravity is
+> the physical/digital boundary."** Breadth is now the headline; manufacturing and
+> geometry are its sharpest expression, not a competing claim.
+>
+> Where sections below still describe the v1 manufacturing-first framing, v2 wins.
+> The manufacturing hook is not discarded — it moved from the hero into the arc and
+> the "What I build now" section, where it reads as one strong instance of the pattern
+> rather than the whole story.
+>
+> **The one risk this reframe introduces:** "problem-solver" is among the most generic
+> self-descriptions in tech. The hero is tuned so the *distinctive* half carries — the
+> serial-depth clause ("the domain changes, the appetite doesn't") and the spatial
+> specialty — and the generic half never stands alone. If the hero ever gets trimmed,
+> protect that, not the word "problem-solver."
 
 ## 1. Purpose
 
 A personal site for Andy Campbell that does one job well: make a hiring manager,
-founder, or fellow engineer understand — in under sixty seconds — that this is an
-engineer who came up through the trades and now builds real manufacturing software.
+founder, or fellow engineer understand — in under sixty seconds — that this is a
+versatile problem-solver with an unusual, specific strength at the line where software
+meets the physical world.
 
-The career arc is the differentiator. The site exists to tell it plainly and back it
-with visible proof.
+The range *is* the differentiator, read correctly: not a restless job history but
+serial depth — hard problems worked to the bottom, one after another. The site exists
+to make that legible and back it with visible proof.
 
 ### Primary audiences, in priority order
 
@@ -25,7 +45,8 @@ with visible proof.
 
 ### Success criteria
 
-- The trades→software arc is legible from the hero alone, without scrolling.
+- The problem-solver-with-a-spatial-specialty thesis is legible from the hero alone,
+  without scrolling — and does not read as generic.
 - The wall-thickness heatmap is seen at a size where it actually reads.
 - Every claim is attached to a specific artifact, number, or system — no adjectives
   doing load-bearing work.
@@ -162,13 +183,17 @@ Structure follows the brief's own recommendation, which is sound:
 
 | # | Section | Purpose |
 |---|---|---|
-| 1 | **Hero** | The arc in one sentence. Nothing competes with it. |
-| 2 | **What I build now** | Current role, manufacturing-software focus. Short. |
-| 3 | **Visual work** | Heatmap + geometry artifacts, shown large. Placed early — it earns attention fastest and requires no self-promotion to land. |
-| 4 | **Projects** | Side Quest Quant, with the generalizability framing. |
-| 5 | **The arc** | Shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
-| 6 | **Technologies** | Grouped, scannable. Never a tag cloud. |
-| 7 | **Contact** | Email, GitHub, LinkedIn, resume PDF. |
+| 1 | **Hero** | The problem-solver thesis + the spatial specialty, in two sentences. Nothing competes with it. |
+| 2 | **What I build now** | Current role; manufacturing framed as one expression of the thesis. Short. |
+| 3 | **Visual work** | Heatmap + geometry artifacts, shown large. Placed early — earns attention fastest, and proves the center-of-gravity claim. |
+| 4 | **Projects** | Side Quest Quant, framed as versatility-in-action + the generalizability note. |
+| 5 | **The arc** | Serial depth: shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
+| 6 | **Working with me** | The teammate section. What a resume can't do. New in v2. |
+| 7 | **Technologies** | Grouped, scannable, with the spatial cluster featured. Never a tag cloud. |
+| 8 | **Contact** | Email, GitHub, LinkedIn, resume PDF. |
+
+Nav labels are single words (`Now · Work · Projects · Arc · Teammate · Stack · Contact`);
+the section headings can be longer ("Working with me"). The two are independent strings.
 
 **Nav:** minimal, sticky, collapses on mobile. Name on the left, section anchors and
 theme toggle on the right. No hamburger unless the anchor list genuinely doesn't fit.
@@ -309,8 +334,9 @@ problem got solved. It is not the subject of the section.
 
 The brief says "600M+ historical records." That was accurate when written and
 silently stopped being so — nobody re-checked, because it had turned into a
-fact-shaped thing rather than a measurement. **`_source/andy-campbell-profile.md`
-still contains the stale figure; do not copy it forward.**
+fact-shaped thing rather than a measurement. **Both `andy-campbell-profile.md` and
+`andy-campbell-profile-v2.md` still contain the stale figure; do not copy it forward.
+The v2 reframe left it untouched, which is exactly how a zombie number survives.**
 
 Any *exact* count regenerates the problem. A fresh number buys maybe eighteen
 months before going stale the same silent way, and a wrong figure on a personal
@@ -454,16 +480,54 @@ rather than tidying it.**
 College. Include it. The non-traditional route is explicitly something to be proud of,
 and quietly omitting the credential would undercut that.
 
+**v2 framing — serial depth.** The section now opens by naming the pattern (find the
+hard part, stay until it's solved, build on it) so the breadth reads as depth across
+domains rather than as a restless résumé. The reframe is a single lead sentence in
+display type; the honest, non-linear telling underneath it is unchanged.
+
+### 6.5a Working with me — *new in v2*
+
+*Ordering: this sits between The arc and Technologies (IA position 6). Nav label
+"Teammate"; heading "Working with me".*
+
+The section a résumé structurally cannot produce: what it's like to be his teammate.
+Three concrete behaviours, from the brief — argues design decisions directly because
+the friction is cheaper than the rework; likes teaching and a team that sharpens each
+other; does his best work one-on-one rather than in broadcast/performance.
+
+**This is the highest voice-risk section on the entire site, by a wide margin.**
+Everywhere else the specifics carry the claim; here the subject *is* the person, and
+any sentence phrased as a virtue ("I'm a strong collaborator") reads as a boast — the
+one register the voice guide bans outright. The section is written to describe
+*behaviour* and let the reader conclude the trait: "the friction is cheaper than the
+rework," not "I give great feedback." First person, plain, no personal-brand gloss.
+
+**Flag for Andy:** this is the copy most likely to need your own hand. It's your voice
+about yourself, which no one can ghost-write convincingly. Treat the current draft as a
+starting point to react to, not a finished section. If any line makes you wince, that
+instinct is correct — cut it.
+
 ### 6.6 Technologies
 
-Grouped exactly as the brief groups them — the breadth is the point, but an
-undifferentiated wall reads as noise:
+**v2 regroup.** The old "CAD / manufacturing / geometry" and "Applied math" groups are
+merged into one **featured** cluster — *Physical, digital & spatial* — rendered with the
+accent label so the eye lands on it first ("feature it accordingly"). The merge is the
+point: the spatial work and the math beneath it are one strength, and shown together
+they read as the center of gravity rather than two adjacent lists. Exactly one group
+carries the `featured` flag.
 
-- **Core stack** — C#, .NET/ASP.NET Core, C, Angular, TypeScript, NgRx, SQL Server, Entity Framework, REST APIs, SignalR, RabbitMQ
-- **CAD / manufacturing / geometry** — Autodesk Inventor API, AutoCAD API, **Polygonica**, **three.js / WebGL**, iLogic, CAD automation, ETO configurators, parametric modeling, KCL (Zoo/KittyCAD), CNC programming, AlphaCam, VBA, mechanical drafting, ERP/MRP/MES, 3D printing workflows
-- **Applied math** — vector math, matrices, quaternions, transforms, 3D geometry
-- **AI / ML tooling** — MCP (Model Context Protocol), agentic tool orchestration, multi-provider LLM architecture, Claude API, OpenAI API, Gemini API, Ollama, Azure AI Foundry, Document Intelligence, Semantic Kernel, RAG
-- **Platform / infrastructure** — Azure (App Services, SQL, DevOps Pipelines), Docker, CI/CD, Git, Proxmox, Nginx, Cloudflare Tunnel, Auth0, Roslyn, WASM/Wasmtime/WASI 0.2/Component Model (WIT), self-hosted deployment
+Current grouping (breadth is the point, but an undifferentiated wall reads as noise):
+
+- **Core** — C#, .NET/ASP.NET Core, C, TypeScript, Angular, NgRx, SQL Server, Entity Framework
+- **Physical, digital & spatial** *(featured)* — Autodesk Inventor API, AutoCAD API, iLogic, CAD automation, ETO configurators, parametric modelling, KCL (Zoo/KittyCAD), three.js, WebGL, glTF, Polygonica, computational geometry, vector math, matrices, quaternions, transforms, CNC programming, AlphaCam, mechanical drafting
+- **AI & LLM** — MCP, agentic tool orchestration, multi-provider LLM architecture, Claude API, OpenAI API, Gemini API, Ollama, RAG, Semantic Kernel, Azure AI Foundry, Azure Document Intelligence
+- **Platform & infrastructure** — Azure, Docker, CI/CD, SignalR, RabbitMQ, Auth0, Roslyn, Nginx, Cloudflare Tunnel, Proxmox, WASM/Wasmtime
+
+**Dropped from the featured cluster vs. v1:** `VBA`, `ERP/MRP/MES`, `3D printing
+workflows`. They're real but not *spatial*, and they diluted the cluster's focus.
+`RabbitMQ`/`SignalR` stayed cut from prose but remain in the infra list. Open question
+for Andy in §9 — whether VBA and ERP/MRP/MES deserve a home somewhere rather than being
+dropped.
 
 ### Where the line goes
 
@@ -650,6 +714,22 @@ Blocking or near-blocking. Marked `TODO` in code where placeholders are used.
       80–120kB with no visible loss. Needs image tooling (`sharp` as a devDependency,
       or converted externally); no converter on this machine.
 - [ ] Replacement heatmap screenshot, if Andy re-captures it (mock up with the current one)
+
+**v2 reframe — review when Andy is back**
+
+- [ ] **The hero thesis.** Whole positioning changed from manufacturing-first to
+      problem-solver-with-a-spatial-specialty. The current lede is my tuning of the v2
+      line; the risk is it reading generic. Read it cold and ask: does the first
+      sentence sound like every other portfolio, or does "the domain changes, the
+      appetite doesn't" save it? This is the single biggest thing to evaluate.
+- [ ] **"Working with me" copy.** Written by me, in your voice, about your character —
+      the highest-risk section on the site. Reaction-and-rewrite expected. See §6.5a.
+- [ ] **Section order.** Teammate now sits between Arc and Technologies. Confirm it
+      lands there and doesn't interrupt the arc→proof→stack flow.
+- [ ] **Featured tech cluster.** "Physical, digital & spatial" is merged and accented.
+      Confirm the accent-label treatment reads as "featured" and not as "mislabeled",
+      and that dropping VBA / ERP-MRP-MES / 3D-printing-workflows from it is acceptable.
+- [ ] **Did NOT regress the zombie number** — v2 reintroduced "600M+"; kept "billions".
 
 **Needs a decision**
 
