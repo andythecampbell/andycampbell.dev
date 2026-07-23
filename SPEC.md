@@ -185,8 +185,7 @@ Structure follows the brief's own recommendation, which is sound:
 |---|---|---|
 | 1 | **Hero** | The problem-solver thesis + the spatial specialty, in two sentences. Nothing competes with it. |
 | 2 | **What I build now** | Current role; manufacturing framed as one expression of the thesis. Short. |
-| 3 | **Visual work** | Heatmap + geometry artifacts, shown large. Placed early — earns attention fastest, and proves the center-of-gravity claim. |
-| 4 | **Projects** | Side Quest Quant, framed as versatility-in-action + the generalizability note. |
+| 3 | **Selected work** | *Experiment:* Visual work + Projects merged into one Challenge/Constraints/Solution carousel. Earns attention fastest; proves the center-of-gravity claim. See §6.3. |
 | 5 | **The arc** | Serial depth: shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
 | 6 | **Working with me** | The teammate section. What a resume can't do. New in v2. |
 | 7 | **Technologies** | Grouped, scannable, with the spatial cluster featured. Never a tag cloud. |
@@ -273,7 +272,30 @@ be specific in the sections built around them.
 
 Rhythm across the page: **outcome, then proof.**
 
-### 6.3 Visual work
+### 6.3 Selected work — *carousel experiment (2026-07-23)*
+
+> **Experiment in progress.** Visual work (§6.3) and Projects (§6.4) are merged into a
+> single **"Selected work"** horizontal carousel. Each slide is a case study on a fixed
+> three-part template: **The Challenge / The Constraints / The Solution.** Labels are
+> global (`CASE_STUDY_SECTIONS`); each study supplies exactly three bodies (enforced by
+> a tuple type + a test), so the pattern can't drift slide to slide.
+>
+> Two slides so far (RapidQuotes DFM, Side Quest Quant); a third is planned once Andy
+> has another screenshot worth showing. Draft copy is mine, to be refined together.
+>
+> **Implementation notes:** native CSS scroll-snap, not a transform track — works with
+> no JS, keyboard/touch native, every slide prerendered and readable by AT. No autoplay
+> (anti-pattern + showy). Active slide tracked via IntersectionObserver; prev/next and
+> dots are enhancement. `ArtifactFigure` gained a `bleed` input so the frame sits inset
+> inside a slide instead of double-bleeding.
+>
+> **Open questions for Andy:** section name ("Selected work"?); third label
+> "Solution" vs "Approach"; whether the SQQ generalization keeps its own `takeaway`
+> slot below the template or folds in; whether the DFM slide wants a public-facing
+> touch (it currently has no link, since it's employer UI). The old separate-section
+> notes below are retained for reference — the copy has moved into the case-study
+> `sections`, but the reasoning (Polygonica as a licensed kernel, framing every capture
+> identically, the no-trading-culture rule) all still governs.
 
 **The highest-leverage content on the site.** Design accordingly.
 

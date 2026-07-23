@@ -113,3 +113,14 @@
     }
   }
 }
+
+@utility no-scrollbar {
+  /* Hide the scrollbar on the work carousel. The prev/next buttons and dots are
+     the scroll affordance, so the bar is redundant chrome. Scrolling itself
+     (touch, trackpad, keyboard) is untouched. */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

@@ -1,0 +1,169 @@
+<!-- Hover and focus pause the auto-advance so it never moves while someone is
+     reading. bound on the outer wrapper so both the track and the controls
+     count as "inside". -->
+<div
+  class="mt-10"
+  role="group"
+  aria-roledescription="carousel"
+  aria-label="Selected work"
+  (mouseenter)="interacting.set(true)"
+  (mouseleave)="interacting.set(false)"
+  (focusin)="interacting.set(true)"
+  (focusout)="interacting.set(false)"
+>
+  <!-- Controls: current name + counter on the left, pause/play + prev/next on
+       the right. All enhancement; without JS the track below is still
+       scrollable on its own. -->
+  <div class="flex items-end justify-between gap-4 border-b border-rule pb-4">
+    <div>
+      <p class="font-mono text-xs tracking-widest text-accent uppercase">
+        {{ counter() }}
+      </p>
+      <p class="mt-2 font-display text-lg tracking-tight text-ink">
+        {{ studies[activeIndex()].name }}
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        (click)="togglePaused()"
+        [attr.aria-label]="paused() ? 'Play automatic slideshow' : 'Pause automatic slideshow'"
+        [attr.aria-pressed]="paused()"
+        class="grid size-9 place-items-center rounded-sm border border-rule text-ink-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        @if (paused()) {
+          <svg viewBox="0 0 12 12" class="size-3" fill="currentColor" aria-hidden="true">
+            <path d="M3 1.5 L10 6 L3 10.5 Z" />
+          </svg>
+        } @else {
+          <svg viewBox="0 0 12 12" class="size-3" fill="currentColor" aria-hidden="true">
+            <rect x="2.5" y="1.5" width="2.5" height="9" rx="0.4" />
+            <rect x="7" y="1.5" width="2.5" height="9" rx="0.4" />
+          </svg>
+        }
+      </button>
+
+      <button
+        type="button"
+        (click)="prev()"
+        aria-label="Previous work"
+        class="grid size-9 place-items-center rounded-sm border border-rule font-mono text-ink-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span aria-hidden="true">&larr;</span>
+      </button>
+      <button
+        type="button"
+        (click)="next()"
+        aria-label="Next work"
+        class="grid size-9 place-items-center rounded-sm border border-rule font-mono text-ink-muted transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      >
+        <span aria-hidden="true">&rarr;</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- The track. `-mx-6 ... px-6` bleeds the scroll area to the screen edge on
+       phones while keeping slide content on the page gutter; `scroll-px-6` makes
+       snap land on that same gutter. `no-scrollbar` hides the bar since prev/next
+       and the dots are the affordance. -->
+  <div
+    #track
+    class="no-scrollbar relative -mx-6 mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-px-6 px-6"
+    tabindex="0"
+    aria-label="Selected work, scrollable"
+  >
+    @for (cs of studies; track cs.id; let i = $index) {
+      <article
+        #slide
+        class="w-full shrink-0 snap-start"
+        role="group"
+        aria-roledescription="slide"
+        [attr.aria-label]="cs.name + ', ' + (i + 1) + ' of ' + studies.length"
+      >
+        <!-- Header: name, tagline, optional link -->
+        <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
+          <h3 class="font-display text-2xl tracking-tight sm:text-3xl">{{ cs.name }}</h3>
+          @if (cs.link) {
+            <a
+              [href]="cs.link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-mono text-xs tracking-widest text-ink-muted uppercase underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {{ cs.link.access }}
+            </a>
+          }
+        </div>
+
+        <p class="mt-3 max-w-[60ch] font-body text-base leading-relaxed text-ink-muted">
+          {{ cs.tagline }}
+        </p>
+
+        <!-- Setup on top: The Challenge / The Constraints, compact and two-up, so
+             they read fast and hand off to the visual. Muted ink keeps them as
+             setup rather than the point. Labels are still the global tuple order
+             (indices 0 and 1), so the template can't drift. -->
+        <div class="mt-8 grid gap-8 sm:grid-cols-2 sm:gap-10">
+          <div>
+            <h4 class="font-mono text-xs tracking-widest text-accent uppercase">
+              {{ sectionLabels[0] }}
+            </h4>
+            <p class="mt-2 font-body text-sm leading-relaxed text-ink-muted">
+              {{ cs.sections[0] }}
+            </p>
+          </div>
+          <div>
+            <h4 class="font-mono text-xs tracking-widest text-accent uppercase">
+              {{ sectionLabels[1] }}
+            </h4>
+            <p class="mt-2 font-body text-sm leading-relaxed text-ink-muted">
+              {{ cs.sections[1] }}
+            </p>
+          </div>
+        </div>
+
+        <!-- The visual in the middle. No caption — the surrounding copy carries
+             the description now. bleed=false because the slide already owns the
+             full width; a second negative margin would overflow the track. -->
+        <div class="mt-10">
+          <app-artifact-figure [artifact]="cs.artifact" [bleed]="false" [showCaption]="false" />
+        </div>
+
+        <!-- The payoff below the visual: The Solution, one size up on both label
+             and body, at full-contrast ink so it lands as the resolution. -->
+        <div class="mt-10">
+          <h4 class="font-mono text-sm tracking-widest text-accent uppercase">
+            {{ sectionLabels[2] }}
+          </h4>
+          <p class="mt-3 max-w-[70ch] font-body text-base leading-relaxed text-ink sm:text-lg">
+            {{ cs.sections[2] }}
+          </p>
+        </div>
+
+        <ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2">
+          @for (tech of cs.stack; track tech) {
+            <li class="font-mono text-xs tracking-wider text-ink-muted">{{ tech }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+
+  <!-- Dots. Also the accessible way to jump straight to a slide. -->
+  @if (studies.length > 1) {
+    <div class="mt-8 flex justify-center gap-3">
+      @for (cs of studies; track cs.id; let i = $index) {
+        <button
+          type="button"
+          (click)="go(i, true)"
+          [attr.aria-label]="'Show ' + cs.name"
+          [attr.aria-current]="activeIndex() === i ? 'true' : null"
+          class="size-2.5 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          [class.bg-accent]="activeIndex() === i"
+          [class.bg-rule]="activeIndex() !== i"
+        ></button>
+      }
+    </div>
+  }
+</div>

@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { App } from './app';
 import {
   ARC,
+  CASE_STUDIES,
+  CASE_STUDY_SECTIONS,
   CONTACT_LINKS,
   HERO,
   NOW,
-  PROJECTS,
   SECTIONS,
   TEAMMATE,
   TECH_GROUPS,
-  VISUAL_WORK,
 } from './data/site';
 
 describe('App', () => {
@@ -120,27 +120,41 @@ describe('App', () => {
     }
   });
 
-  /* The gallery is the highest-leverage content on the site, and it's driven by
-     data — so a typo'd path fails silently as a broken image rather than loudly
-     at build time. Alt text is checked because these images carry real
-     information; a decorative empty alt would be wrong here. */
-  it('should render every artifact with meaningful alt text', async () => {
-    const compiled = await render();
-    const artifacts = [...VISUAL_WORK.artifacts, ...PROJECTS.map((p) => p.artifact)];
-
-    for (const artifact of artifacts) {
-      const img = compiled.querySelector<HTMLImageElement>(`img[src="${artifact.src}"]`);
-      expect(img).toBeTruthy();
-      expect(img?.getAttribute('alt')?.length ?? 0).toBeGreaterThan(20);
+  /* Every case study follows the three-part template. The tuple type enforces
+     this at compile time; this asserts it survives into the data too, so a
+     stray edit can't leave a study with two sections or four. */
+  it('should give every case study exactly three sections', () => {
+    for (const study of CASE_STUDIES) {
+      expect(study.sections.length).toBe(CASE_STUDY_SECTIONS.length);
     }
   });
 
-  it('should link each project with its access state announced', async () => {
+  /* The carousel prerenders every slide (SSG / no-JS / screen readers all read
+     the full set), each with its artifact and the three template labels. */
+  it('should prerender every case study slide with its artifact and template', async () => {
     const compiled = await render();
-    for (const project of PROJECTS) {
-      const link = compiled.querySelector(`a[href="${project.href}"]`);
+    const slides = compiled.querySelectorAll('article[aria-roledescription="slide"]');
+    expect(slides.length).toBe(CASE_STUDIES.length);
+
+    for (const study of CASE_STUDIES) {
+      const img = compiled.querySelector<HTMLImageElement>(`img[src="${study.artifact.src}"]`);
+      expect(img).toBeTruthy();
+      expect(img?.getAttribute('alt')?.length ?? 0).toBeGreaterThan(20);
+    }
+
+    const workText = compiled.querySelector('section#work')?.textContent ?? '';
+    for (const label of CASE_STUDY_SECTIONS) {
+      expect(workText).toContain(label);
+    }
+  });
+
+  it('should link a case study with its access state announced', async () => {
+    const compiled = await render();
+    for (const study of CASE_STUDIES) {
+      if (!study.link) continue;
+      const link = compiled.querySelector(`a[href="${study.link.href}"]`);
       expect(link).toBeTruthy();
-      expect(link?.textContent).toContain(project.access);
+      expect(link?.textContent).toContain(study.link.access);
       expect(link?.getAttribute('rel')).toContain('noopener');
     }
   });

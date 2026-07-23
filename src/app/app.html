@@ -61,87 +61,14 @@
       </dl>
     </section>
 
-    <!-- ── Placeholders ─────────────────────────────────────────────────
-         `scroll-mt-24` keeps anchor targets clear of the sticky nav. -->
-    <!-- ── Visual work ──────────────────────────────────────────────────
-         Highest-leverage content on the site. The artifact does the talking,
-         so the prose stays out of its way. SPEC.md §6.3
-
-         `-mx-6` cancels the parent's `px-6` so the figure bleeds to the screen
-         edge on narrow viewports, where 24px of gutter costs real image width.
-         `sm:mx-0` puts the gutter back once there's room to spare. -->
+    <!-- ── Selected work (EXPERIMENT) ───────────────────────────────────
+         Visual work + Projects merged into one horizontal carousel of case
+         studies, each following the same Challenge / Constraints / Solution
+         template. `scroll-mt-24` keeps the anchor clear of the sticky nav.
+         SPEC.md §6.3 -->
     <section id="work" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Visual work" />
-
-      <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
-        {{ visualWork.lede }}
-      </p>
-
-      @for (a of visualWork.artifacts; track a.src) {
-        <div class="mt-12">
-          <app-artifact-figure [artifact]="a" />
-        </div>
-      }
-
-      <p class="mt-12 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-        {{ visualWork.body }}
-      </p>
-    </section>
-
-    <!-- ── Projects ─────────────────────────────────────────────────────
-         Leads with the problem solved, not the domain and not the disclaimer.
-         Trading is where the problem got solved; it isn't the subject.
-         SPEC.md §6.4 -->
-    <section id="projects" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Projects" />
-
-      @for (p of projects; track p.name) {
-        <article class="mt-8">
-          <div class="flex flex-wrap items-baseline gap-x-5 gap-y-2">
-            <h3 class="font-display text-3xl tracking-tight sm:text-4xl">{{ p.name }}</h3>
-
-            <!-- The access state is set before the click. A login wall that
-                 arrives unannounced reads as a broken link. -->
-            <a
-              [href]="p.href"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-mono text-xs tracking-widest text-ink-muted uppercase underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              {{ p.access }}
-            </a>
-          </div>
-
-          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
-            {{ p.lede }}
-          </p>
-
-          @for (paragraph of p.body; track $index) {
-            <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-              {{ paragraph }}
-            </p>
-          }
-
-          <div class="mt-12">
-            <app-artifact-figure [artifact]="p.artifact" />
-          </div>
-
-          <!-- Set apart because it's the sentence that matters to a reader who
-               doesn't care about trading — which is most of the intended
-               audience. Same treatment as the metrics: a rule, not a box. -->
-          <p
-            class="mt-12 max-w-[65ch] border-l-2 border-accent pl-5 font-body text-base leading-relaxed text-ink"
-          >
-            {{ p.generalization }}
-          </p>
-
-          <ul class="mt-10 flex flex-wrap gap-x-5 gap-y-2">
-            @for (tech of p.stack; track tech) {
-              <li class="font-mono text-xs tracking-wider text-ink-muted">{{ tech }}</li>
-            }
-          </ul>
-        </article>
-      }
+      <app-section-heading label="Selected work" />
+      <app-case-studies />
     </section>
 
     <!-- ── The arc ──────────────────────────────────────────────────────

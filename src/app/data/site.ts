@@ -14,8 +14,8 @@ export interface NavSection {
 
 export const SECTIONS: readonly NavSection[] = [
   { id: 'now', label: 'Now' },
+  // Visual work + Projects merged into one "Selected work" carousel (experiment).
   { id: 'work', label: 'Work' },
-  { id: 'projects', label: 'Projects' },
   { id: 'arc', label: 'Arc' },
   { id: 'teammate', label: 'Teammate' },
   { id: 'stack', label: 'Stack' },
@@ -82,64 +82,86 @@ export interface Artifact {
   readonly ratio: string;
 }
 
-export const VISUAL_WORK = {
-  lede: 'A part gets checked against the process that will actually build it, before anyone quotes a price.',
-  body: 'A customer uploads a part and it gets checked against the real constraints of the process that will build it. The thickness analysis comes out of Polygonica, a licensed geometry kernel; the work was the pipeline around it — C# turning an uploaded STL into glTF with per-vertex thickness baked into the mesh, so the browser renders the analysis directly instead of recomputing it.',
-  artifacts: [
-    {
+/**
+ * EXPERIMENT (2026-07-23) — "Selected work" carousel. SPEC.md §6.3.
+ *
+ * Merges the old Visual work and Projects sections into one horizontal carousel
+ * of case studies. Every case study follows the same three-part template so the
+ * section reads as a consistent pattern rather than two bespoke layouts. Labels
+ * are global (below); each study supplies exactly three bodies in the same order.
+ *
+ * Draft copy — Andy will refine. Voice rules honoured: no em dashes, contractions,
+ * problem-first framing, Polygonica named as a licensed kernel (not something he
+ * built), no trading-culture language, "billions of records" not a precise count.
+ */
+export const CASE_STUDY_SECTIONS = ['The Challenge', 'The Constraints', 'The Solution'] as const;
+
+export interface CaseStudy {
+  readonly id: string;
+  readonly name: string;
+  /** One line under the name. What the thing is, in plain terms. */
+  readonly tagline: string;
+  readonly artifact: Artifact;
+  /**
+   * Bodies for The Challenge / The Constraints / The Solution, in that order.
+   * A fixed-length tuple so a study can't silently drop a part of the template.
+   */
+  readonly sections: readonly [string, string, string];
+  readonly stack: readonly string[];
+  /** Optional public link. Access state set before the click, so a login wall
+      doesn't read as a dead link. */
+  readonly link?: {
+    readonly href: string;
+    readonly label: string;
+    readonly access: string;
+  };
+}
+
+export const CASE_STUDIES: readonly CaseStudy[] = [
+  {
+    id: 'rapidquotes',
+    name: 'RapidQuotes manufacturability',
+    tagline: 'Instant design-for-manufacturing checks on customer-uploaded parts.',
+    artifact: {
       src: 'media/rapidquotes-dfm-heatmap.png',
-      alt: 'A 3D model of a moulded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size — the feature size check showing a warning.',
+      alt: 'A 3D model of a moulded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size, with the feature size check showing a warning.',
       caption:
-        'RapidQuotes manufacturability validation. Green is within tolerance; red and orange mark walls too thin for the process. The customer can accept the risk or send the part for manual review.',
+        'RapidQuotes manufacturability validation. Green is in tolerance; red and orange mark walls too thin for the process.',
       /* Source file is 1846x842. Cropped to 1846x750 to drop the pricing strip
          along the bottom, which was cut mid-element and pulled the read toward
          "shopping cart" rather than "engineering". SPEC.md §6.3 */
       ratio: '1846/750',
     },
-  ] as readonly Artifact[],
-} as const;
-
-export interface Project {
-  readonly name: string;
-  readonly href: string;
-  readonly hrefLabel: string;
-  /** Sets expectation before the click — a login wall shouldn't read as a dead link. */
-  readonly access: string;
-  readonly lede: string;
-  readonly body: readonly string[];
-  /** Why this matters to a reader who doesn't care about the domain. */
-  readonly generalization: string;
-  readonly stack: readonly string[];
-  readonly artifact: Artifact;
-}
-
-export const PROJECTS: readonly Project[] = [
-  {
-    name: 'Side Quest Quant',
-    href: 'https://sidequestquant.com',
-    hrefLabel: 'sidequestquant.com',
-    access: 'Live — request access',
-    /* Leads with the problem. Trading is the venue, not the subject, and the
-       "not a finance person" note appears once as a clause. SPEC.md §6.4 */
-    lede: 'Letting someone write their own code and run it inside your application — safely, at scale, in a loop that never stops.',
-    body: [
-      'Side Quest Quant is a platform for writing, testing, and running trading strategies. I don’t trade; I wanted to know whether untrusted, user-authored code could be executed safely in a live loop. That turned out to be the entire problem — and exactly the kind of thing I’ll chase into a domain I have no stake in.',
-      'Strategies are written in C# and compiled at runtime with Roslyn, then replayed against billions of records of history before they go near a live market. Agents running across several LLM providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor.',
+    sections: [
+      'Customers upload a 3D model and expect a price in seconds, but not every part can actually be built. Walls below the process minimum fail on the machine, and catching that by hand doesn’t scale to a self-serve portal.',
+      'The check had to run on geometry we’d never seen, fast enough to live inside a checkout that dropped from 15 seconds to 6. The thickness math comes from Polygonica, a licensed C kernel, so the real work was getting its output into the browser without shipping the whole model and recomputing it there. And a customer, not an engineer, has to read the result at a glance.',
+      'A C# pipeline takes the uploaded STL, runs the analysis, and writes a glTF with wall thickness baked into the mesh as per-vertex data. The browser renders the heatmap straight from that. Green is in tolerance, red and orange are too thin, and the customer can accept the risk or send the part for review.',
     ],
-    generalization:
-      'The pattern outlives the domain. Safely running customer-authored logic inside a host application is the same problem as enterprise CPQ rules, manufacturing business logic, and CAM toolpath validation — anywhere the customer knows their own domain better than the vendor ever will.',
-    stack: ['ASP.NET Core', 'Angular', 'SQL Server', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
+    stack: ['C#', 'ASP.NET Core', 'Polygonica', 'three.js', 'glTF', 'Angular'],
+  },
+  {
+    id: 'side-quest-quant',
+    name: 'Side Quest Quant',
+    tagline: 'Running untrusted, user-authored code safely in a live loop.',
     artifact: {
       src: 'media/side-quest-quant-backtests.png',
       alt: 'A dark application interface. On the left, an agent conversation with the LLM provider set to Claude and a model selected, showing a dispatched job with an ID and running status. On the right, a column of completed backtest cards, each with a line chart of its output.',
-      /* Describes what is on screen and nothing more. The curves are evidence the
-         loop runs end to end; presenting them as results to admire would be the
-         exact register §6.4 avoids. */
       caption:
         'A batch of backtests. Left, an agent session with the provider and model chosen explicitly. Right, completed runs and their output.',
       /* Not cropped. The partly visible third card reads as a list continuing;
          cropping higher would cut the chat input mid-element, which reads as broken. */
       ratio: '1880/881',
+    },
+    sections: [
+      'Let someone write their own strategy code and run it inside the application, safely, in a loop that never stops. I don’t trade. I wanted to know whether untrusted, user-authored code could run safely in a live system, and that turned out to be the whole problem.',
+      'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime, replay against billions of records of history, then trade live, without ever taking the host down with it. Several LLM providers are in the mix, and I own the deployment end to end.',
+      'Strategies are written in C# and compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
+    ],
+    stack: ['ASP.NET Core', 'Angular', 'SQL Server', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
+    link: {
+      href: 'https://sidequestquant.com',
+      label: 'sidequestquant.com',
+      access: 'Live, request access',
     },
   },
 ];
