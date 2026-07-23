@@ -153,7 +153,7 @@ export const PROJECTS: readonly Project[] = [
  * makes the "knows a real shop" claim credible rather than asserted.
  */
 export const ARC: readonly string[] = [
-  'Always looking to expand my skillsets, I follow a pattern of finding the pain points of my role or my company and finding or building solutions to those challenges.',
+  'Always looking to expand my skillsets, I follow a pattern of spotting the pain points (for me or the business), then either finding or building the solution.',
   'I started from installing kitchen cabinets, moved to producing them, then CNC programming for large shops. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
   'By 2011, while going to school on the side, I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. I went back to manufacturing engineering where I learned how to build systems for different business practices, and which abstractions survive contact with a real shop vs falling apart the first time someone has to cut a part from them.',
   'Six years of design-automation consulting produced a platform to quickly build web based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now writing production software at Stratasys. No computer science degree. An associate’s in computer information systems, and the rest learned on the job, solving real problems, building real solutions.',
