@@ -33,14 +33,12 @@ export const SITE = {
  * engineer" to "versatile problem-solver whose center of gravity is the
  * physical/digital boundary." SPEC.md §6.1.
  *
- * Tuned deliberately away from "I solve hard problems" as the opener — that's one
- * of the most generic lines in tech. The distinctive clause ("the domain changes,
- * the appetite doesn't") carries the versatility idea; the second sentence names
- * the rare part, the spatial specialty. The generic and the specific are never
- * left to stand alone.
+ * Andy's own words (verbatim). The distinctive clause ("the domain changes, my
+ * appetite for solving problems doesn't") carries the versatility idea; the second
+ * sentence names the rare part, the spatial specialty.
  */
 export const HERO = {
-  lede: 'I go deep on hard problems until they’re solved — the domain changes, the appetite doesn’t. I’m happiest where software meets the physical world: 3D, geometry, manufacturing.',
+  lede: 'I meet challenges where they are. The domain changes, my appetite for solving problems doesn’t. Finding solutions lights me up, especially where software meets the physical world: 3D, geometry, manufacturing.',
 } as const;
 
 /**
@@ -55,11 +53,9 @@ export interface Metric {
 }
 
 export const NOW = {
-  /* Reads as one expression of the hero thesis rather than a competing headline —
-     "that" points back at the physical-world sentence directly above. Also drops
-     the job-title repeat, since the hero eyebrow already carries it. SPEC.md §6.2 */
-  lede: 'Right now that’s manufacturing at scale: production software for industrial 3D printing, at Stratasys since 2022.',
-  body: 'Mostly .NET and Angular, on systems where what gets ordered is a physical part rather than a row in a database. Most of the work comes down to the same shape: more throughput, less time spent waiting. The numbers below are from the quoting portal redesign I led.',
+  /* Andy's own words (verbatim). SPEC.md §6.2 */
+  lede: 'Creating production software for industrial 3D printing, at Stratasys since 2022.',
+  body: 'Primarily .NET and Angular, on customer facing systems where what gets ordered turns into a physical part as it moves through our shop floor and MES system. The work typically comes down to the same shape: more throughput, less time spent waiting. The numbers below reflect the quoting portal redesign that I led.',
   /* Two, not five. The resume carries the other three; a wall of percentages
      reads as padding and undercuts the voice. SPEC.md §6.2 */
   metrics: [
@@ -149,21 +145,18 @@ export const PROJECTS: readonly Project[] = [
 ];
 
 /**
- * SPEC.md §6.5 — short, and honest about the non-linear part.
+ * SPEC.md §6.5 — Andy's own words (verbatim).
  *
- * Reframed for profile v2 as *serial depth*: the first line names the pattern
- * (find the hard part, stay until it's solved, build on it), so the breadth
- * reads as depth-across-domains rather than as a restless job history.
- *
- * The going-back-to-manufacturing step is kept deliberately. A straight line is
- * the story every portfolio tells; the detour is what makes the claim about
- * knowing real shops credible rather than asserted.
+ * Rewritten by Andy to lead with breadth+depth as a strength rather than as an
+ * apology. The lead names his pattern (find the pain points, build solutions);
+ * the rest tells it plainly, keeping the non-linear step because that's what
+ * makes the "knows a real shop" claim credible rather than asserted.
  */
 export const ARC: readonly string[] = [
-  'The path looks broad. Up close it’s one move repeated: find the hard part, stay until it’s solved, build on what’s left — then go looking for the next one.',
-  'I started on the shop floor — production, CNC programming, quality control. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
-  'By 2011 I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. Then I went back to manufacturing engineering for two years — which sounds like a step sideways and wasn’t. It’s where I learned which abstractions survive contact with a real shop, and which fall apart the first time someone has to cut a part from them.',
-  'Six years of design-automation consulting after that, then production software at Stratasys. No computer science degree — an associate’s in computer information systems, and the rest learned on the job.',
+  'Always looking to expand my skillsets, I follow a pattern of finding the pain points of my role or my company and finding or building solutions to those challenges.',
+  'I started from installing kitchen cabinets, moved to producing them, then CNC programming for large shops. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
+  'By 2011, while going to school on the side, I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. I went back to manufacturing engineering where I learned how to build systems for different business practices, and which abstractions survive contact with a real shop vs falling apart the first time someone has to cut a part from them.',
+  'Six years of design-automation consulting produced a platform to quickly build web based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now writing production software at Stratasys. No computer science degree. An associate’s in computer information systems, and the rest learned on the job, solving real problems, building real solutions.',
 ];
 
 /**
