@@ -187,12 +187,14 @@ Structure follows the brief's own recommendation, which is sound:
 | 2 | **What I build now** | Current role; manufacturing framed as one expression of the thesis. Short. |
 | 3 | **Selected work** | *Experiment:* Visual work + Projects merged into one Challenge/Constraints/Solution carousel. Earns attention fastest; proves the center-of-gravity claim. See §6.3. |
 | 5 | **The arc** | Serial depth: shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
-| 6 | **Working with me** | The teammate section. What a resume can't do. New in v2. |
 | 7 | **Technologies** | Grouped, scannable, with the spatial cluster featured. Never a tag cloud. |
 | 8 | **Contact** | Email, GitHub, LinkedIn, resume PDF. |
 
-Nav labels are single words (`Now · Work · Projects · Arc · Teammate · Stack · Contact`);
-the section headings can be longer ("Working with me"). The two are independent strings.
+**Working with me** (the teammate section, §6.5a) was built, then **removed 2026-07-24** —
+Andy wants to rethink it before it returns. Notes retained in §6.5a for if it does.
+
+Nav labels are single words (`Now · Work · Arc · Stack · Contact`); section headings
+can be longer. The two are independent strings.
 
 **Nav:** minimal, sticky, collapses on mobile. Name on the left, section anchors and
 theme toggle on the right. No hamburger unless the anchor list genuinely doesn't fit.
@@ -382,7 +384,22 @@ Bad: "Billions of records."
   on this site. Just label the link so expectations are set before the click
   (e.g. "Live — request access") rather than letting a login wall read as a dead link.
 
-**The "I'm not a finance person" angle — handle with restraint.**
+> **Reframed 2026-07-24 — read this first.** SQQ now leads **product-first**, not
+> problem-first: the tagline is "Platform for building algorithmic trading bots through
+> natural language," and the Challenge opens "Create a platform where LLM code is
+> generated on the fly…". **The "I don't trade" disclaimer is deliberately gone.**
+>
+> This reverses the earlier direction below, on purpose and on Andy's call. His
+> reasoning: the "not a finance person" angle came out of the source docs' emphasis, he
+> *does* trade, he's proud of the work, and he's comfortable presenting as multifaceted.
+> He accepts the tension with "looks unfocused to employers" and judges the honest,
+> multifaceted version the stronger and truer play. **Do not reintroduce the disclaimer.**
+>
+> What still holds from below: no trading-culture flex language (returns/alpha/edge/P&L),
+> and screenshots as evidence the system runs, not as performance to admire. The rest of
+> this subsection is superseded, kept for the reasoning trail.
+
+**The "I'm not a finance person" angle — handle with restraint.** *(Superseded — see the box above.)*
 
 The brief leans on this heavily. Andy's own read is that it's overemphasized, and he's
 right. The disclaimer is self-defeating: every sentence insisting the project isn't
@@ -507,10 +524,16 @@ hard part, stay until it's solved, build on it) so the breadth reads as depth ac
 domains rather than as a restless résumé. The reframe is a single lead sentence in
 display type; the honest, non-linear telling underneath it is unchanged.
 
-### 6.5a Working with me — *new in v2*
+### 6.5a Working with me — *built then removed 2026-07-24*
 
-*Ordering: this sits between The arc and Technologies (IA position 6). Nav label
-"Teammate"; heading "Working with me".*
+> **Removed.** Built in v2, then pulled — Andy wants to rethink it before it goes back.
+> The reasoning below is kept for whenever it returns; the copy is out of the code
+> (`TEAMMATE` deleted, nav entry and section gone). The one durable lesson: a section
+> about your own character is the hardest thing on a personal site to get right, and it
+> is better absent than boastful.
+
+*If it returns: sat between The arc and Technologies. Nav label "Teammate"; heading
+"Working with me".*
 
 The section a résumé structurally cannot produce: what it's like to be his teammate.
 Three concrete behaviours, from the brief — argues design decisions directly because

@@ -90,25 +90,6 @@
       }
     </section>
 
-    <!-- ── Working with me ──────────────────────────────────────────────
-         What a resume can't do. Highest voice risk on the site — describe
-         behaviour, let the reader conclude; never claim the virtue outright.
-         SPEC.md §6.6 -->
-    <section id="teammate" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Working with me" />
-
-      @for (paragraph of teammate.body; track $index; let first = $first) {
-        @if (first) {
-          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
-            {{ teammate.lede }}
-          </p>
-        }
-        <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-          {{ paragraph }}
-        </p>
-      }
-    </section>
-
     <!-- ── Technologies ─────────────────────────────────────────────────
          Grouped and scannable. Text labels, never a logo grid — vendor logos
          are noise and age badly as brands rebrand. SPEC.md §6.6 -->

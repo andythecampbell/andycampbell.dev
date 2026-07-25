@@ -8,7 +8,6 @@ import {
   HERO,
   NOW,
   SECTIONS,
-  TEAMMATE,
   TECH_GROUPS,
 } from './data/site';
 
@@ -41,15 +40,6 @@ describe('App', () => {
     /* First ~40 chars, to survive smart-quote / whitespace differences between
        the source string and the rendered DOM. */
     expect(compiled.textContent).toContain(HERO.lede.slice(0, 40));
-  });
-
-  it('should render the teammate section lede and body', async () => {
-    const compiled = await render();
-    const text = compiled.querySelector('section#teammate')?.textContent ?? '';
-    expect(text).toContain(TEAMMATE.lede.slice(0, 30));
-    for (const paragraph of TEAMMATE.body) {
-      expect(text).toContain(paragraph.slice(0, 40));
-    }
   });
 
   /* Exactly one technology group is the featured center-of-gravity cluster. Two

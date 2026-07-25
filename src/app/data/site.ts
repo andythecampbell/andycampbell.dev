@@ -17,7 +17,6 @@ export const SECTIONS: readonly NavSection[] = [
   // Visual work + Projects merged into one "Selected work" carousel (experiment).
   { id: 'work', label: 'Work' },
   { id: 'arc', label: 'Arc' },
-  { id: 'teammate', label: 'Teammate' },
   { id: 'stack', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
 ];
@@ -133,16 +132,16 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       ratio: '1846/750',
     },
     sections: [
-      'Customers upload a 3D model and expect a price in seconds, but not every part can actually be built. Walls below the process minimum fail on the machine, and catching that by hand doesn’t scale to a self-serve portal.',
-      'The check had to run on geometry we’d never seen, fast enough to live inside a checkout that dropped from 15 seconds to 6. The thickness math comes from Polygonica, a licensed C kernel, so the real work was getting its output into the browser without shipping the whole model and recomputing it there. And a customer, not an engineer, has to read the result at a glance.',
-      'A C# pipeline takes the uploaded STL, runs the analysis, and writes a glTF with wall thickness baked into the mesh as per-vertex data. The browser renders the heatmap straight from that. Green is in tolerance, red and orange are too thin, and the customer can accept the risk or send the part for review.',
+      'Customers upload a 3D model and expect a price in seconds, but not every part will print correctly. Thin walls can deform when printing, and while we can detect the wall thickness, it’s not always obvious if the placement will cause issues.',
+      'We offer a range of technologies and materials, each with different tolerances for wall thicknesses. The UX needs to feel snappy and responsive when the user configures the part. A round trip to the API to calculate thickness is too expensive. We may want to add other DFM checks in the future.',
+      'A C# pipeline takes the uploaded STL, runs a wall thickness analysis using the Polygonica C API, and writes a glTF with wall thickness baked into the mesh as per-vertex data. The custom three.js shader renders the heatmap straight from that. Green is in tolerance, red and orange are too thin, and the customer can accept the risk or send the part for review.',
     ],
     stack: ['C#', 'ASP.NET Core', 'Polygonica', 'three.js', 'glTF', 'Angular'],
   },
   {
     id: 'side-quest-quant',
     name: 'Side Quest Quant',
-    tagline: 'Running untrusted, user-authored code safely in a live loop.',
+    tagline: 'Platform for building algorithmic trading bots through natural language.',
     artifact: {
       src: 'media/side-quest-quant-backtests.png',
       alt: 'A dark application interface. On the left, an agent conversation with the LLM provider set to Claude and a model selected, showing a dispatched job with an ID and running status. On the right, a column of completed backtest cards, each with a line chart of its output.',
@@ -153,15 +152,15 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       ratio: '1880/881',
     },
     sections: [
-      'Let someone write their own strategy code and run it inside the application, safely, in a loop that never stops. I don’t trade. I wanted to know whether untrusted, user-authored code could run safely in a live system, and that turned out to be the whole problem.',
-      'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime, replay against billions of records of history, then trade live, without ever taking the host down with it. Several LLM providers are in the mix, and I own the deployment end to end.',
-      'Strategies are written in C# and compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
+      'Create a platform where LLM code is generated on the fly and hot loaded to run safely in a loop indefinitely. I provide the structure and extensibility; users pair with their favorite LLMs to provide the strategies and rules.',
+      'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime. It needs to behave the same way whether it’s testing against billions of historical records or a live market data firehose. Several LLM providers are in the mix, and I own the deployment end to end.',
+      'The platform provides the interface contracts and the structure to run them. LLM generated code is compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
     ],
     stack: ['ASP.NET Core', 'Angular', 'SQL Server', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
     link: {
       href: 'https://sidequestquant.com',
       label: 'sidequestquant.com',
-      access: 'Live, request access',
+      access: 'Side project, live at sidequestquant.com',
     },
   },
 ];
@@ -181,25 +180,9 @@ export const ARC: readonly string[] = [
   'Six years of design-automation consulting produced a platform to quickly build web based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now writing production software at Stratasys. No computer science degree. An associate’s in computer information systems, and the rest learned on the job, solving real problems, building real solutions.',
 ];
 
-/**
- * SPEC.md §6.6 — "Working with me". New in profile v2, and the thing a resume
- * genuinely can't do.
- *
- * HIGHEST VOICE RISK ON THE SITE. Claims about one's own character read as
- * boasting the instant they're phrased as claims, and the voice guide forbids
- * self-aggrandizement outright. Written to describe behaviour concretely and let
- * the reader draw the conclusion — "the friction is cheaper than the rework",
- * not "I'm a great collaborator." This is the section most likely to need Andy's
- * own hand; it's his voice about himself, which no one else can ghost-write well.
- */
-export const TEAMMATE = {
-  lede: 'The part a resume can’t show is what it’s like to work next to me.',
-  body: [
-    'I’ll argue a design decision with you — directly, and early — because the friction is cheaper than the rework. It’s not about winning the point; the team just lands a better answer when someone actually pushes on it.',
-    'I like teaching, and I like the kind of team where people get sharper for being near each other. My best work happens in real one-on-one relationships, not in a standup performance or a broadcast channel.',
-    'Mostly I try to be the coworker I’d want to have.',
-  ],
-} as const;
+/* "Working with me" / TEAMMATE section removed 2026-07-24 — Andy wants to rethink
+   it before it goes back in. The reasoning it carried (describe behaviour, never
+   claim the virtue) lives in SPEC.md §6.6 if it returns. */
 
 export interface TechGroup {
   readonly label: string;

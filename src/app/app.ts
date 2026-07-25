@@ -6,7 +6,6 @@ import {
   HERO,
   NOW,
   SITE,
-  TEAMMATE,
   TECH_GROUPS,
   TECH_NOTE,
 } from './data/site';
@@ -26,7 +25,6 @@ export class App {
   protected readonly hero = HERO;
   protected readonly now = NOW;
   protected readonly arc = ARC;
-  protected readonly teammate = TEAMMATE;
   protected readonly techGroups = TECH_GROUPS;
   protected readonly techNote = TECH_NOTE;
   protected readonly contactLede = CONTACT_LEDE;

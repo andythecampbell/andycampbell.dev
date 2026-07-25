@@ -48,3 +48,9 @@ Thumbs.db
 # the resume source files, and original full-res captures.
 # Anything that ships gets copied into public/ deliberately. See SPEC.md §9.
 /_source
+
+# Andy's working copy docs (verbiage drafts derived from private conversations) and
+# the Office temp/lock files they spawn. Local only — never committed.
+*.rtf
+~$*
+~WRL*.tmp
