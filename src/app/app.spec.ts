@@ -8,7 +8,8 @@ import {
   HERO,
   NOW,
   SECTIONS,
-  TECH_GROUPS,
+  TECH_CORE,
+  TECH_DOMAINS,
 } from './data/site';
 
 describe('App', () => {
@@ -42,10 +43,25 @@ describe('App', () => {
     expect(compiled.textContent).toContain(HERO.lede.slice(0, 40));
   });
 
-  /* Exactly one technology group is the featured center-of-gravity cluster. Two
-     (or zero) would mean the "feature it" signal is broken. */
-  it('should feature exactly one technology group', () => {
-    expect(TECH_GROUPS.filter((g) => g.featured).length).toBe(1);
+  /* Every technology — core row, domain labels, and the items nested inside the
+     collapsed <details> — must be in the prerendered HTML. Collapsed only hides
+     them visually; the full range still has to be there for search and AT. */
+  it('should prerender the full technology range, including collapsed items', async () => {
+    const compiled = await render();
+    const stack = compiled.querySelector('section#stack')?.textContent ?? '';
+
+    for (const item of TECH_CORE) {
+      expect(stack).toContain(item);
+    }
+    for (const domain of TECH_DOMAINS) {
+      expect(stack).toContain(domain.label);
+      for (const node of domain.nodes) {
+        expect(stack).toContain(node.name);
+        for (const child of node.children ?? []) {
+          expect(stack).toContain(child);
+        }
+      }
+    }
   });
 
   it('should expose a theme toggle', async () => {
@@ -81,20 +97,11 @@ describe('App', () => {
     }
   });
 
-  it('should render the arc and every technology group', async () => {
+  it('should render every arc paragraph', async () => {
     const compiled = await render();
-
     const arcText = compiled.querySelector('section#arc')?.textContent ?? '';
     for (const paragraph of ARC) {
       expect(arcText).toContain(paragraph.slice(0, 40));
-    }
-
-    const stackText = compiled.querySelector('section#stack')?.textContent ?? '';
-    for (const group of TECH_GROUPS) {
-      expect(stackText).toContain(group.label);
-      for (const item of group.items) {
-        expect(stackText).toContain(item);
-      }
     }
   });
 

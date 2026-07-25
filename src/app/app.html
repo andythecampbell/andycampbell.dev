@@ -91,41 +91,11 @@
     </section>
 
     <!-- ── Technologies ─────────────────────────────────────────────────
-         Grouped and scannable. Text labels, never a logo grid — vendor logos
-         are noise and age badly as brands rebrand. SPEC.md §6.6 -->
+         Core row shown; the range grouped into expandable <details>. Text
+         labels, never a logo grid. SPEC.md §6.6 -->
     <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="Technologies" />
-
-      <!-- Definition list: the group label genuinely defines its terms, so the
-           semantics are real rather than decorative. -->
-      <dl class="mt-10 space-y-10">
-        @for (group of techGroups; track group.label) {
-          <div class="grid gap-x-10 gap-y-3 sm:grid-cols-[13rem_1fr]">
-            <!-- The featured (center-of-gravity) group takes the accent colour so
-                 the eye lands on it first. Every other label stays muted.
-                 Individual class bindings compose with the static class; a
-                 whole-string [class] binding would fight it. -->
-            <dt
-              class="font-mono text-xs tracking-widest uppercase"
-              [class.text-accent]="group.featured"
-              [class.text-ink-muted]="!group.featured"
-            >
-              {{ group.label }}
-            </dt>
-            <dd>
-              <ul class="flex flex-wrap gap-x-4 gap-y-2">
-                @for (item of group.items; track item) {
-                  <li class="font-body text-sm text-ink">{{ item }}</li>
-                }
-              </ul>
-            </dd>
-          </div>
-        }
-      </dl>
-
-      <p class="mt-12 max-w-[65ch] font-body text-sm leading-relaxed text-ink-muted">
-        {{ techNote }}
-      </p>
+      <app-tech-stack />
     </section>
 
     <!-- ── Contact ──────────────────────────────────────────────────────

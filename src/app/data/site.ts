@@ -156,7 +156,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime. It needs to behave the same way whether it’s testing against billions of historical records or a live market data firehose. Several LLM providers are in the mix, and I own the deployment end to end.',
       'The platform provides the interface contracts and the structure to run them. LLM generated code is compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
     ],
-    stack: ['ASP.NET Core', 'Angular', 'SQL Server', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
+    stack: ['ASP.NET Core', 'Angular', 'SQL', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
     link: {
       href: 'https://sidequestquant.com',
       label: 'sidequestquant.com',
@@ -184,101 +184,123 @@ export const ARC: readonly string[] = [
    it before it goes back in. The reasoning it carried (describe behaviour, never
    claim the virtue) lives in SPEC.md §6.6 if it returns. */
 
-export interface TechGroup {
-  readonly label: string;
-  readonly items: readonly string[];
-  /**
-   * The center-of-gravity cluster (profile v2). Rendered with the accent label
-   * so the eye lands on it first — "feature it accordingly" without breaking the
-   * restraint of the section. Exactly one group should set this.
-   */
-  readonly featured?: boolean;
+/**
+ * Technologies (SPEC.md §6.6). Rebuilt 2026-07-25 from Andy's own outline
+ * (Technologies.txt) into two tiers:
+ *
+ *   TECH_CORE    — the flat, always-visible daily drivers.
+ *   TECH_DOMAINS — expandable groups that carry the breadth. Collapsed by
+ *                  default (native <details>) so the section isn't a wall, but
+ *                  everything prerenders and is there for search / screen readers.
+ *
+ * The list is exactly what Andy has actually worked with. He deliberately left
+ * off things he's only interested in or exploring (they were in the source doc
+ * and must NOT be added back here). No em dashes, no logo grid.
+ *
+ * Product-name spellings normalised from the outline; see the commit / message
+ * for the exact list, in case any were wrong to "correct".
+ */
+export interface TechNode {
+  readonly name: string;
+  /** Sub-items, e.g. ERP → Sage / Epicor / SAP. One level deep, by design. */
+  readonly children?: readonly string[];
 }
 
-/**
- * Grouped, scannable, text only. No logo grid — vendor logos are noise and age
- * badly as brands rebrand (SPEC.md §6.6).
- *
- * Profile v2 folds the old "CAD / manufacturing / geometry" and "Applied math"
- * groups into one featured cluster. The merge is the point: the spatial work and
- * the math under it are the same strength, and shown together they read as the
- * center of gravity rather than as two adjacent lists.
- */
-export const TECH_GROUPS: readonly TechGroup[] = [
-  {
-    label: 'Core',
-    items: [
-      'C#',
-      '.NET / ASP.NET Core',
-      'C',
-      'TypeScript',
-      'Angular',
-      'NgRx',
-      'SQL Server',
-      'Entity Framework',
-    ],
-  },
-  {
-    label: 'Physical, digital & spatial',
-    featured: true,
-    items: [
-      'Autodesk Inventor API',
-      'AutoCAD API',
-      'iLogic',
-      'CAD automation',
-      'ETO configurators',
-      'parametric modelling',
-      'KCL (Zoo / KittyCAD)',
-      'three.js',
-      'WebGL',
-      'glTF',
-      'Polygonica',
-      'computational geometry',
-      'vector math',
-      'matrices',
-      'quaternions',
-      'transforms',
-      'CNC programming',
-      'AlphaCam',
-      'mechanical drafting',
-    ],
-  },
-  {
-    label: 'AI & LLM',
-    items: [
-      'MCP',
-      'agentic tool orchestration',
-      'multi-provider LLM architecture',
-      'Claude API',
-      'OpenAI API',
-      'Gemini API',
-      'Ollama',
-      'RAG',
-      'Semantic Kernel',
-      'Azure AI Foundry',
-      'Azure Document Intelligence',
-    ],
-  },
-  {
-    label: 'Platform & infrastructure',
-    items: [
-      'Azure',
-      'Docker',
-      'CI/CD',
-      'SignalR',
-      'RabbitMQ',
-      'Auth0',
-      'Roslyn',
-      'Nginx',
-      'Cloudflare Tunnel',
-      'Proxmox',
-      'WASM / Wasmtime',
-    ],
-  },
+export interface TechDomain {
+  readonly label: string;
+  readonly nodes: readonly TechNode[];
+}
+
+export const TECH_CORE: readonly string[] = [
+  'C#',
+  'Angular',
+  'Entity Framework Core',
+  'ASP.NET Core',
+  'three.js',
+  'WebGL',
+  'NgRx',
+  'SQL',
+  'RabbitMQ',
+  'Docker',
+  'SignalR',
+  'SSE',
 ];
 
-export const TECH_NOTE =
-  'Grouped by where the depth is, not where the hours are. The spatial and .NET work runs years deep; the newer AI and self-hosting pieces are where evenings go.';
+/* Ordered to lead with the physical/digital differentiators (CAD, CNC, spatial
+   math), then AI, then the broader integration and platform range. */
+export const TECH_DOMAINS: readonly TechDomain[] = [
+  {
+    label: 'CAD automation',
+    nodes: [
+      { name: 'Autodesk Inventor (COM API + iLogic)' },
+      { name: 'SolidWorks' },
+      { name: 'AutoCAD' },
+      { name: 'Fusion 360' },
+      { name: 'Autodesk Platform Services (incl. Forge)' },
+    ],
+  },
+  {
+    label: 'CNC programming & automation',
+    nodes: [
+      { name: 'Alphacam' },
+      { name: 'RouterCIM' },
+      { name: 'Mastercam' },
+      { name: 'WoodWOP' },
+    ],
+  },
+  {
+    label: '3D spatial math',
+    nodes: [
+      { name: 'Matrices', children: ['translation', 'shear'] },
+      { name: 'Vectors' },
+      { name: 'Quaternions' },
+    ],
+  },
+  {
+    label: 'AI integrations',
+    nodes: [
+      { name: 'MCP' },
+      { name: 'Multi-provider APIs', children: ['OpenAI', 'Anthropic', 'Gemini'] },
+      { name: 'Agentic tool orchestration' },
+      { name: 'Multi-agent' },
+    ],
+  },
+  {
+    label: 'Custom software & integrations',
+    nodes: [
+      { name: 'ERP', children: ['Sage', 'Epicor', 'SAP'] },
+      { name: 'MES (homegrown)' },
+      { name: 'PLM', children: ['Autodesk Vault', 'homegrown'] },
+      { name: 'CPQ (homegrown)' },
+      { name: 'CRM', children: ['Salesforce', 'homegrown'] },
+    ],
+  },
+  {
+    label: 'Infrastructure',
+    nodes: [
+      { name: 'Azure', children: ['Web Services', 'Azure DB', 'Blob Storage'] },
+      { name: 'IIS' },
+    ],
+  },
+  {
+    label: 'DevOps',
+    nodes: [
+      { name: 'Git' },
+      { name: 'SVN' },
+      {
+        name: 'CI/CD',
+        children: ['Azure DevOps', 'Azure Pipelines', 'TeamCity', 'Octopus Deploy', 'Bamboo'],
+      },
+      { name: 'Jira' },
+      { name: 'Linear' },
+      { name: 'ServiceNow' },
+    ],
+  },
+  {
+    label: 'AI development tools',
+    nodes: [{ name: 'Cursor' }, { name: 'Claude Code' }, { name: 'Codex' }],
+  },
+];
 
 export const CONTACT_LEDE =
   'If you’re building software where the output is a physical object — manufacturing, CAD, geometry, anything that ends up as a real part — I’d like to hear about it.';

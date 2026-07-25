@@ -1,0 +1,78 @@
+<!-- Core: the daily drivers, always visible. Pipe-separated (see the item class:
+     a muted "|" before every item except the first). -->
+<ul class="mt-8 flex flex-wrap gap-y-1">
+  @for (item of core; track item) {
+    <li
+      class="font-body text-sm text-ink before:mx-2 before:text-rule before:content-['|'] first:before:content-none"
+    >
+      {{ item }}
+    </li>
+  }
+</ul>
+
+<!-- Domains: expandable, native <details>. Collapsed by default so the section
+     stays calm; the count on each summary signals the range before it's opened. -->
+<div class="mt-12 divide-y divide-rule border-y border-rule">
+  @for (domain of domains; track domain.label) {
+    <details class="group">
+      <summary
+        class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden"
+      >
+        <span class="font-mono text-xs tracking-widest text-ink uppercase group-hover:text-accent">
+          {{ domain.label }}
+        </span>
+
+        <span class="flex items-center gap-3">
+          <span class="font-mono text-xs text-ink-muted">{{ count(domain) }}</span>
+          <!-- Chevron: rotates when the parent <details> is open. aria-hidden
+               because the summary's expanded/collapsed state is already announced. -->
+          <svg
+            viewBox="0 0 12 12"
+            class="size-3 text-ink-muted transition-transform duration-200 group-open:rotate-90"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            aria-hidden="true"
+          >
+            <path d="M4 2 L8 6 L4 10" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </summary>
+
+      <div class="pb-6">
+        <!-- Loose (childless) technologies: one pipe-separated row. -->
+        @if (leaves(domain).length) {
+          <ul class="flex flex-wrap gap-y-1">
+            @for (node of leaves(domain); track node.name) {
+              <li
+                class="font-body text-sm text-ink before:mx-2 before:text-rule before:content-['|'] first:before:content-none"
+              >
+                {{ node.name }}
+              </li>
+            }
+          </ul>
+        }
+
+        <!-- Grouped technologies. Hierarchy is by depth, not by role: the parent
+             name sits at the same level as the loose items above and shares their
+             style (body / ink, flush-left). Only its children step down a level —
+             a distinct subordinate style (mono, smaller, muted), indented under a
+             hairline rule. -->
+        @for (node of parents(domain); track node.name) {
+          <div class="mt-5">
+            <p class="font-body text-sm text-ink">{{ node.name }}</p>
+            <ul class="mt-2 flex flex-wrap gap-y-1 border-l border-rule pl-4">
+              @for (child of node.children; track child) {
+                <li
+                  class="font-mono text-xs text-ink-muted before:mx-2 before:text-rule before:content-['|'] first:before:content-none"
+                >
+                  {{ child }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </details>
+  }
+</div>
