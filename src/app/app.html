@@ -24,9 +24,48 @@
       </p>
     </section>
 
+    <!-- ── Technologies ─────────────────────────────────────────────────
+         Core row shown; the range grouped into expandable <details>. Text
+         labels, never a logo grid. Leads the stack so a skimming viewer knows
+         what Andy works with before seeing what he's built with it. SPEC.md §6.6 -->
+    <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="Technologies" />
+      <app-tech-stack />
+    </section>
+
+    <!-- ── Selected work (EXPERIMENT) ───────────────────────────────────
+         Visual work + Projects merged into one horizontal carousel of case
+         studies, each following the same Challenge / Constraints / Solution
+         template. `scroll-mt-24` keeps the anchor clear of the sticky nav.
+         SPEC.md §6.3 -->
+    <section id="work" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="Selected work" />
+      <app-case-studies />
+    </section>
+
+    <!-- ── The arc ──────────────────────────────────────────────────────
+         Short, and told plainly. The first paragraph gets display type because
+         it's the hook; the rest steps down to body. SPEC.md §6.5 -->
+    <section id="arc" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="The arc" />
+
+      @for (paragraph of arc; track $index) {
+        @if ($first) {
+          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
+            {{ paragraph }}
+          </p>
+        } @else {
+          <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
+            {{ paragraph }}
+          </p>
+        }
+      }
+    </section>
+
     <!-- ── What I build now ─────────────────────────────────────────────
-         Short. Current role, the concrete thing built, two metrics.
-         SPEC.md §6.2 -->
+         Short. Current role, the concrete thing built, two metrics. Follows
+         the arc directly since this is where the arc lands: what Andy builds
+         today. SPEC.md §6.2 -->
     <section id="now" class="scroll-mt-24 border-t border-rule py-24">
       <app-section-heading label="What I build now" />
 
@@ -59,43 +98,6 @@
           </div>
         }
       </dl>
-    </section>
-
-    <!-- ── Selected work (EXPERIMENT) ───────────────────────────────────
-         Visual work + Projects merged into one horizontal carousel of case
-         studies, each following the same Challenge / Constraints / Solution
-         template. `scroll-mt-24` keeps the anchor clear of the sticky nav.
-         SPEC.md §6.3 -->
-    <section id="work" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Selected work" />
-      <app-case-studies />
-    </section>
-
-    <!-- ── The arc ──────────────────────────────────────────────────────
-         Short, and told plainly. The first paragraph gets display type because
-         it's the hook; the rest steps down to body. SPEC.md §6.5 -->
-    <section id="arc" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="The arc" />
-
-      @for (paragraph of arc; track $index) {
-        @if ($first) {
-          <p class="mt-8 max-w-[46ch] font-display text-2xl leading-snug tracking-tight sm:text-3xl">
-            {{ paragraph }}
-          </p>
-        } @else {
-          <p class="mt-6 max-w-[65ch] font-body text-base leading-relaxed text-ink-muted">
-            {{ paragraph }}
-          </p>
-        }
-      }
-    </section>
-
-    <!-- ── Technologies ─────────────────────────────────────────────────
-         Core row shown; the range grouped into expandable <details>. Text
-         labels, never a logo grid. SPEC.md §6.6 -->
-    <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Technologies" />
-      <app-tech-stack />
     </section>
 
     <!-- ── Contact ──────────────────────────────────────────────────────

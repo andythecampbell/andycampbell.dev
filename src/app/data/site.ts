@@ -13,11 +13,11 @@ export interface NavSection {
 }
 
 export const SECTIONS: readonly NavSection[] = [
-  { id: 'now', label: 'Now' },
+  { id: 'stack', label: 'Stack' },
   // Visual work + Projects merged into one "Selected work" carousel (experiment).
   { id: 'work', label: 'Work' },
   { id: 'arc', label: 'Arc' },
-  { id: 'stack', label: 'Stack' },
+  { id: 'now', label: 'Now' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -37,7 +37,7 @@ export const SITE = {
  * sentence names the rare part, the spatial specialty.
  */
 export const HERO = {
-  lede: 'I meet challenges where they are. The domain changes, my appetite for solving problems doesn’t. Finding solutions lights me up, especially where software meets the physical world: 3D, geometry, manufacturing.',
+  lede: 'I meet challenges where they are. Finding solutions lights me up, especially where software meets the physical world: 3D, geometry, manufacturing. My passion for solving problems doesn’t change even as the domain does.',
 } as const;
 
 /**
@@ -174,7 +174,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
  * makes the "knows a real shop" claim credible rather than asserted.
  */
 export const ARC: readonly string[] = [
-  'Always looking to expand my skillsets, I follow a pattern of spotting the pain points (for me or the business), then either finding or building the solution.',
+  'Always looking to expand my skillsets. I follow a pattern of spotting the pain points, then finding or building the solution.',
   'I started from installing kitchen cabinets, moved to producing them, then CNC programming for large shops. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
   'By 2011, while going to school on the side, I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. I went back to manufacturing engineering where I learned how to build systems for different business practices, and which abstractions survive contact with a real shop vs falling apart the first time someone has to cut a part from them.',
   'Six years of design-automation consulting produced a platform to quickly build web based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now writing production software at Stratasys. No computer science degree. An associate’s in computer information systems, and the rest learned on the job, solving real problems, building real solutions.',
