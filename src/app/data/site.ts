@@ -126,10 +126,12 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       alt: 'A 3D model of a moulded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size, with the feature size check showing a warning.',
       caption:
         'RapidQuotes manufacturability validation. Green is in tolerance; red and orange mark walls too thin for the process.',
-      /* Source file is 1846x842. Cropped to 1846x750 to drop the pricing strip
-         along the bottom, which was cut mid-element and pulled the read toward
-         "shopping cart" rather than "engineering". SPEC.md §6.3 */
-      ratio: '1846/750',
+      /* Source file is 1846x842. Cropped to drop the pricing strip along the
+         bottom, which was cut mid-element and pulled the read toward "shopping
+         cart" rather than "engineering". Height picked to land on the shared
+         ~2.4 ratio the carousel now uses across all three studies, so slides
+         don't jump height as the carousel advances. SPEC.md §6.3 */
+      ratio: '1846/769',
     },
     sections: [
       'Customers upload a 3D model and expect a price in seconds, but not every part will print correctly. Thin walls can deform when printing, and while we can detect the wall thickness, it’s not always obvious if the placement will cause issues.',
@@ -147,9 +149,11 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       alt: 'A dark application interface. On the left, an agent conversation with the LLM provider set to Claude and a model selected, showing a dispatched job with an ID and running status. On the right, a column of completed backtest cards, each with a line chart of its output.',
       caption:
         'A batch of backtests. Left, an agent session with the provider and model chosen explicitly. Right, completed runs and their output.',
-      /* Not cropped. The partly visible third card reads as a list continuing;
-         cropping higher would cut the chat input mid-element, which reads as broken. */
-      ratio: '1880/881',
+      /* Cropped to the shared ~2.4 ratio (see rapidquotes above) so carousel
+         slides hold a consistent height. Lands just past the second equity
+         curve's axis labels and drops the third card entirely, rather than
+         cutting either card mid-element. */
+      ratio: '1880/783',
     },
     sections: [
       'Create a platform where LLM code is generated on the fly and hot loaded to run safely in a loop indefinitely. I provide the structure and extensibility; users pair with their favorite LLMs to provide the strategies and rules.',
@@ -162,6 +166,27 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       label: 'sidequestquant.com',
       access: 'Side project, live at sidequestquant.com',
     },
+  },
+  {
+    id: 'ruler-engine',
+    name: 'Ruler Engine',
+    tagline: 'Configurator platform that turns engineered-to-order designs into instant quotes and shop-floor-ready models.',
+    artifact: {
+      src: 'media/ruler-engine-configurators.png',
+      alt: 'A collage of three configurator interfaces built on the same platform: a playground layout tool showing a 3D play structure with a parts list and live price, a pressure vessel designer showing a metal tank model with ASME design requirement fields, and a modular rack configurator showing a wireframe of stacked storage bays with bay dimension fields.',
+      caption:
+        'The same rules engine driving three unrelated product lines: playground equipment, pressure vessels, and modular racking.',
+      /* Same ~2.4 shared ratio as the other two studies. Crops off the last
+         sliver of dimension fields under the rack diagram, which was already
+         partly cut by the collage's own bottom edge. */
+      ratio: '1960/817',
+    },
+    sections: [
+      'Build a tool for manufacturers of custom, engineered-to-order products to quickly generate accurate quotes that can be turned into mechanical models and manufacturing drawings.',
+      'Easy to use configurator with low level graphics that designers can use. Generate pricing instantly. Use customers engineering rules and design intent. Quick and easy way to turn those quotes into models and drawings for the shop floor.',
+      'A platform that allows engineering teams or implementation consultants to easily define hierarchal assemblies through C#. API for this rules model that feeds an Angular front end with low detail graphics for initial design. One click outputs that generate 3D models and drawings ready for the shop floor.',
+    ],
+    stack: ['C#', 'ASP.NET Core', 'Angular', 'Three.js', 'CAD APIs'],
   },
 ];
 
@@ -303,7 +328,7 @@ export const TECH_DOMAINS: readonly TechDomain[] = [
 ];
 
 export const CONTACT_LEDE =
-  'If you’re building software where the output is a physical object — manufacturing, CAD, geometry, anything that ends up as a real part — I’d like to hear about it.';
+  'Are you building software where the output leads to a physical object? Interested in using WASM to safely run external or LLM generated code on your app? Or just want to nerd out about custom shaders or toolpath creation? Reach out, I want to hear from you!';
 
 export interface ContactLink {
   readonly label: string;
