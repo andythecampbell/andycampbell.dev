@@ -13,11 +13,11 @@ export interface NavSection {
 }
 
 export const SECTIONS: readonly NavSection[] = [
-  { id: 'stack', label: 'Stack' },
+  { id: 'arc', label: 'Arc' },
   // Visual work + Projects merged into one "Selected work" carousel (experiment).
   { id: 'work', label: 'Work' },
-  { id: 'arc', label: 'Arc' },
   { id: 'now', label: 'Now' },
+  { id: 'stack', label: 'Stack' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -37,7 +37,7 @@ export const SITE = {
  * sentence names the rare part, the spatial specialty.
  */
 export const HERO = {
-  lede: 'I meet challenges where they are. Finding solutions lights me up, especially where software meets the physical world: 3D, geometry, manufacturing. My passion for solving problems doesn’t change even as the domain does.',
+  lede: 'I meet challenges where they are. Finding solutions lights me up, especially where software meets the physical world: 3D, geometry, and manufacturing. The domain changes; my appetite for solving problems doesn’t.',
 } as const;
 
 /**
@@ -54,12 +54,12 @@ export interface Metric {
 export const NOW = {
   /* Andy's own words (verbatim). SPEC.md §6.2 */
   lede: 'Creating production software for industrial 3D printing, at Stratasys since 2022.',
-  body: 'Primarily .NET and Angular, on customer facing systems where what gets ordered turns into a physical part as it moves through our shop floor and MES system. The work typically comes down to the same shape: more throughput, less time spent waiting. The numbers below reflect the quoting portal redesign that I led.',
+  body: 'Primarily .NET and Angular on customer-facing systems where what gets ordered turns into a physical part as it moves through our shop floor and MES system. The work typically comes down to the same shape: more throughput, less time spent waiting. The numbers below reflect the quoting portal redesign that I led.',
   /* Two, not five. The resume carries the other three; a wall of percentages
      reads as padding and undercuts the voice. SPEC.md §6.2 */
   metrics: [
     { label: 'Revenue', from: '$2.56M', to: '$3.89M', change: '+52%' },
-    { label: 'Checkout', from: '15s', to: '6s', change: '60% faster' },
+    { label: 'Checkout time', from: '15s', to: '6s', change: '60% faster' },
   ] as readonly Metric[],
 } as const;
 
@@ -123,7 +123,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
     tagline: 'Instant design-for-manufacturing checks on customer-uploaded parts.',
     artifact: {
       src: 'media/rapidquotes-dfm-heatmap.png',
-      alt: 'A 3D model of a moulded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size, with the feature size check showing a warning.',
+      alt: 'A 3D model of a molded housing shaded green, with red and orange patches marking walls thinner than the printing process can reliably build. Beside it, automated design-for-manufacturability checks for part size, model integrity, and feature size, with the feature size check showing a warning.',
       caption:
         'RapidQuotes manufacturability validation. Green is in tolerance; red and orange mark walls too thin for the process.',
       /* Source file is 1846x842. Cropped to drop the pricing strip along the
@@ -134,7 +134,7 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       ratio: '1846/769',
     },
     sections: [
-      'Customers upload a 3D model and expect a price in seconds, but not every part will print correctly. Thin walls can deform when printing, and while we can detect the wall thickness, it’s not always obvious if the placement will cause issues.',
+      'Customers upload a 3D model and expect a price in seconds, but not every part will print correctly. Thin walls can deform, and while we can detect their thickness, it’s not always obvious whether their placement will cause print failures.',
       'We offer a range of technologies and materials, each with different tolerances for wall thicknesses. The UX needs to feel snappy and responsive when the user configures the part. A round trip to the API to calculate thickness is too expensive. We may want to add other DFM checks in the future.',
       'A C# pipeline takes the uploaded STL, runs a wall thickness analysis using the Polygonica C API, and writes a glTF with wall thickness baked into the mesh as per-vertex data. The custom three.js shader renders the heatmap straight from that. Green is in tolerance, red and orange are too thin, and the customer can accept the risk or send the part for review.',
     ],
@@ -156,9 +156,9 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       ratio: '1880/783',
     },
     sections: [
-      'Create a platform where LLM code is generated on the fly and hot loaded to run safely in a loop indefinitely. I provide the structure and extensibility; users pair with their favorite LLMs to provide the strategies and rules.',
-      'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime. It needs to behave the same way whether it’s testing against billions of historical records or a live market data firehose. Several LLM providers are in the mix, and I own the deployment end to end.',
-      'The platform provides the interface contracts and the structure to run them. LLM generated code is compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise them, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
+      'I wanted a platform where LLM-generated code could be compiled on the fly, hot-reloaded, and run safely in a loop. I provide the structure and extensibility; users bring their strategies and rules through the LLMs they already use.',
+      'The code is untrusted, so it can be broken or hostile. It has to compile and run at runtime, whether it’s testing against billions of historical records or a live market-data firehose. Several LLM providers are in the mix, and I own the deployment end-to-end.',
+      'The platform provides the interface contracts and structure to run them. LLM-generated code is compiled at runtime with Roslyn, then run inside a constrained sandbox. Agents across several providers help draft and revise it, and a custom MCP server exposes the same tools to Claude Desktop and Cursor. The whole loop runs from idea to code to backtest to live.',
     ],
     stack: ['ASP.NET Core', 'Angular', 'SQL', 'Roslyn', 'Auth0', 'Docker', 'MCP'],
     link: {
@@ -182,11 +182,11 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
       ratio: '1960/817',
     },
     sections: [
-      'Build a tool for manufacturers of custom, engineered-to-order products to quickly generate accurate quotes that can be turned into mechanical models and manufacturing drawings.',
-      'Easy to use configurator with low level graphics that designers can use. Generate pricing instantly. Use customers engineering rules and design intent. Quick and easy way to turn those quotes into models and drawings for the shop floor.',
-      'A platform that allows engineering teams or implementation consultants to easily define hierarchal assemblies through C#. API for this rules model that feeds an Angular front end with low detail graphics for initial design. One click outputs that generate 3D models and drawings ready for the shop floor.',
+      'Manufacturers of custom, engineered-to-order products need accurate quotes fast, and those quotes need to become mechanical models and manufacturing drawings without a manual handoff.',
+      'Designers need an easy-to-use configurator with low-detail graphics. Pricing has to be instant, and the rules have to reflect each customer’s engineering constraints and design intent before turning quotes into shop-floor-ready models and drawings.',
+      'The platform lets engineering teams and implementation consultants define hierarchical assemblies in C#. An API exposes that rules model to an Angular front end with low-detail graphics for initial design. One-click actions generate 3D models and drawings ready for the shop floor.',
     ],
-    stack: ['C#', 'ASP.NET Core', 'Angular', 'Three.js', 'CAD APIs'],
+    stack: ['C#', 'ASP.NET Core', 'Angular', 'three.js', 'CAD APIs'],
   },
 ];
 
@@ -199,10 +199,10 @@ export const CASE_STUDIES: readonly CaseStudy[] = [
  * makes the "knows a real shop" claim credible rather than asserted.
  */
 export const ARC: readonly string[] = [
-  'Always looking to expand my skillsets. I follow a pattern of spotting the pain points, then finding or building the solution.',
+  'I follow a pattern: spot the pain point, then find or build the solution.',
   'I started from installing kitchen cabinets, moved to producing them, then CNC programming for large shops. The first code anyone paid me for was VBA automating my own job: machining wood doors on a CNC router.',
   'By 2011, while going to school on the side, I was writing .NET add-ins for Inventor and AutoCAD, used daily by a fifteen-person engineering department. I went back to manufacturing engineering where I learned how to build systems for different business practices, and which abstractions survive contact with a real shop vs falling apart the first time someone has to cut a part from them.',
-  'Six years of design-automation consulting produced a platform to quickly build web based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now writing production software at Stratasys. No computer science degree. An associate’s in computer information systems, and the rest learned on the job, solving real problems, building real solutions.',
+  'Six years of design-automation consulting produced a platform to quickly build web-based configurators that generated instant quoting and drove CAD drawings to the shop floor. Now I write production software at Stratasys. No computer science degree: an associate’s in computer information systems, with the rest learned on the job, solving real problems and building real solutions.',
 ];
 
 /* "Working with me" / TEAMMATE section removed 2026-07-24 — Andy wants to rethink
@@ -328,7 +328,7 @@ export const TECH_DOMAINS: readonly TechDomain[] = [
 ];
 
 export const CONTACT_LEDE =
-  'Are you building software where the output leads to a physical object? Interested in using WASM to safely run external or LLM generated code on your app? Or just want to nerd out about custom shaders or toolpath creation? Reach out, I want to hear from you!';
+  'Are you building software where the output leads to a physical object? Interested in using WASM to safely run external or LLM-generated code in your app? Or just want to nerd out about custom shaders or toolpath creation? Reach out. I’d like to hear from you.';
 
 export interface ContactLink {
   readonly label: string;

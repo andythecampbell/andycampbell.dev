@@ -51,6 +51,9 @@ Thumbs.db
 
 # Andy's working copy docs (verbiage drafts derived from private conversations) and
 # the Office temp/lock files they spawn. Local only — never committed.
+Technologies.docx
+Technologies.txt
+RapidQuotesHeatmap.jpg
 *.rtf
 ~$*
 ~WRL*.tmp

@@ -1,6 +1,6 @@
 # andycampbell.dev — Build Spec
 
-> Status: **Draft v2** — reframed thesis, awaiting content inputs (see §9 Open Items)
+> Status: **Implemented v2** — this document records the design rationale and deferred enhancements.
 > Source material: `andy-campbell-profile-v2.md` (supersedes v1)
 
 ---
@@ -184,9 +184,9 @@ Structure follows the brief's own recommendation, which is sound:
 | # | Section | Purpose |
 |---|---|---|
 | 1 | **Hero** | The problem-solver thesis + the spatial specialty, in two sentences. Nothing competes with it. |
-| 2 | **What I build now** | Current role; manufacturing framed as one expression of the thesis. Short. |
+| 2 | **The arc** | Serial depth: shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
 | 3 | **Selected work** | *Experiment:* Visual work + Projects merged into one Challenge/Constraints/Solution carousel. Earns attention fastest; proves the center-of-gravity claim. See §6.3. |
-| 5 | **The arc** | Serial depth: shop floor → CNC → CAD automation → software. Short; a story, not a CV. |
+| 5 | **What I build now** | Current role; manufacturing framed as one expression of the thesis. Short. |
 | 7 | **Technologies** | Grouped, scannable, with the spatial cluster featured. Never a tag cloud. |
 | 8 | **Contact** | Email, GitHub, LinkedIn, resume PDF. |
 
@@ -630,8 +630,9 @@ just capability. It's differentiating and it's true.
 
 ### 6.7 Contact
 
-Email, GitHub, LinkedIn, resume PDF. Plain links, no icons-only. Email as a real
-`mailto:` — obfuscation costs usability and barely helps.
+Email, GitHub, and LinkedIn. Plain links, no icons-only. Email as a real `mailto:`
+— obfuscation costs usability and barely helps. A resume link is deferred until a
+public PDF is available.
 
 - **Email:** `andy@andycampbell.dev` (Cloudflare forwarder)
 - **GitHub:** https://github.com/andythecampbell

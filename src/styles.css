@@ -21,8 +21,8 @@
 /* Dark mode is driven by a `.dark` class on <html>, not by `prefers-color-scheme`
    alone — we need a manual toggle that can override the OS setting. This
    redefines Tailwind's built-in `dark:` variant to look for that class instead.
-   The OS preference is still respected: the inline script in index.html reads it
-   on first visit and sets the class accordingly. */
+   The inline script in index.html restores an explicit saved preference; first
+   visits intentionally use the light theme. */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* --- Design tokens (SPEC.md §4.2) -----------------------------------------

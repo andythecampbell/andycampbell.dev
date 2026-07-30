@@ -127,7 +127,12 @@
              the description now. bleed=false because the slide already owns the
              full width; a second negative margin would overflow the track. -->
         <div class="mt-10">
-          <app-artifact-figure [artifact]="cs.artifact" [bleed]="false" [showCaption]="false" />
+          <app-artifact-figure
+            [artifact]="cs.artifact"
+            [bleed]="false"
+            [showCaption]="false"
+            [priority]="i === 0"
+          />
         </div>
 
         <!-- The payoff below the visual: The Solution, one size up on both label

@@ -1,11 +1,13 @@
-<!--
-  Phase 2 — hero and "What I build now" are real. Sections below them are still
-  placeholders naming what belongs in them.
--->
 <div id="top" class="min-h-dvh bg-bg text-ink">
+  <a
+    href="#main-content"
+    class="sr-only absolute left-4 top-4 z-50 rounded-sm bg-bg px-4 py-2 font-body text-sm text-ink shadow-sm outline-none focus:not-sr-only focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+  >
+    Skip to content
+  </a>
   <app-site-nav />
 
-  <main class="mx-auto max-w-5xl px-6">
+  <main id="main-content" class="mx-auto max-w-5xl px-6">
     <!-- ── Hero ─────────────────────────────────────────────────────────
          The problem-solver thesis, not the manufacturing headline (profile v2).
          Still one idea, nothing competing with it. No image, no headshot, no
@@ -22,25 +24,6 @@
       <p class="mt-8 max-w-[60ch] font-body text-xl leading-relaxed text-ink-muted sm:text-2xl">
         {{ hero.lede }}
       </p>
-    </section>
-
-    <!-- ── Technologies ─────────────────────────────────────────────────
-         Core row shown; the range grouped into expandable <details>. Text
-         labels, never a logo grid. Leads the stack so a skimming viewer knows
-         what Andy works with before seeing what he's built with it. SPEC.md §6.6 -->
-    <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Technologies" />
-      <app-tech-stack />
-    </section>
-
-    <!-- ── Selected work (EXPERIMENT) ───────────────────────────────────
-         Visual work + Projects merged into one horizontal carousel of case
-         studies, each following the same Challenge / Constraints / Solution
-         template. `scroll-mt-24` keeps the anchor clear of the sticky nav.
-         SPEC.md §6.3 -->
-    <section id="work" class="scroll-mt-24 border-t border-rule py-24">
-      <app-section-heading label="Selected work" />
-      <app-case-studies />
     </section>
 
     <!-- ── The arc ──────────────────────────────────────────────────────
@@ -60,6 +43,16 @@
           </p>
         }
       }
+    </section>
+
+    <!-- ── Selected work (EXPERIMENT) ───────────────────────────────────
+         Visual work + Projects merged into one horizontal carousel of case
+         studies, each following the same Challenge / Constraints / Solution
+         template. `scroll-mt-24` keeps the anchor clear of the sticky nav.
+         SPEC.md §6.3 -->
+    <section id="work" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="Selected work" />
+      <app-case-studies />
     </section>
 
     <!-- ── What I build now ─────────────────────────────────────────────
@@ -98,6 +91,15 @@
           </div>
         }
       </dl>
+    </section>
+
+    <!-- ── Technologies ─────────────────────────────────────────────────
+         Core row shown; the range grouped into expandable <details>. Text
+         labels, never a logo grid. It follows the work so the skills list
+         supports the proof visitors have already seen. SPEC.md §6.6 -->
+    <section id="stack" class="scroll-mt-24 border-t border-rule py-24">
+      <app-section-heading label="Technologies" />
+      <app-tech-stack />
     </section>
 
     <!-- ── Contact ──────────────────────────────────────────────────────

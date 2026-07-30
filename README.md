@@ -7,7 +7,7 @@ Angular, prerendered to static HTML. No server runtime.
 
 ## Stack
 
-- **Angular 21** — standalone components, signals, zoneless
+- **Angular 21** — standalone components, signals, hydration
 - **Tailwind CSS v4** — CSS-first `@theme` configuration, no `tailwind.config.js`
 - **Static prerendering** — `outputMode: "static"`, builds to plain HTML/CSS/JS
 - **Hosting** — Cloudflare Tunnel to a self-hosted Proxmox container
@@ -15,7 +15,7 @@ Angular, prerendered to static HTML. No server runtime.
 ## Commands
 
 ```bash
-npm start        # dev server at http://localhost:4201
+npm start        # dev server at http://localhost:4200
 npm run build    # prerender to dist/andycampbell-dev/browser
 npm test         # unit tests (Vitest)
 ```

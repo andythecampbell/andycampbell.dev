@@ -32,7 +32,8 @@ import type { Artifact } from '../../data/site';
           [width]="width()"
           [height]="height()"
           class="w-full object-cover object-top"
-          loading="lazy"
+          [attr.loading]="priority() ? 'eager' : 'lazy'"
+          [attr.fetchpriority]="priority() ? 'high' : null"
           decoding="async"
         />
       </div>
@@ -55,6 +56,9 @@ export class ArtifactFigure {
   /** Show the caption under the image. Off where surrounding copy already carries
       the description (the caption's `alt` text still serves screen readers). */
   readonly showCaption = input(true);
+
+  /** The first meaningful image can be prioritized; later artifacts stay lazy. */
+  readonly priority = input(false);
 
   protected readonly frameClass = computed(() => {
     const base = 'overflow-hidden border-rule bg-surface';
