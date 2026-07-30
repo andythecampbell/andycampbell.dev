@@ -114,6 +114,38 @@
   }
 }
 
+/* A quiet progressive enhancement for the long-form page: as a section enters
+   the viewport it rises the last few pixels into place. The static layout is the
+   fallback, so browsers without scroll-driven animation support get the same
+   content and reading order without JavaScript. */
+@keyframes section-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10vh);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .section-reveal {
+    animation: section-reveal linear both;
+    animation-range: entry 0% entry 38%;
+    animation-timeline: view();
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @utility no-scrollbar {
   /* Hide the scrollbar on the work carousel. The prev/next buttons and dots are
      the scroll affordance, so the bar is redundant chrome. Scrolling itself
