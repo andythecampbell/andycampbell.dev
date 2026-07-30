@@ -124,7 +124,11 @@
               [attr.rel]="link.external ? 'noopener noreferrer' : null"
               class="mt-1 block font-body text-base text-ink underline decoration-rule underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
-              {{ link.display }}
+              @if (link.label === 'Email') {
+                <!--email_off-->{{ link.display }}<!--/email_off-->
+              } @else {
+                {{ link.display }}
+              }
             </a>
           </li>
         }
