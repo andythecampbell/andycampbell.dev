@@ -121,7 +121,7 @@
 @keyframes section-reveal {
   from {
     opacity: 0;
-    transform: translateY(10vh);
+    transform: translateY(12vh);
   }
 
   to {
